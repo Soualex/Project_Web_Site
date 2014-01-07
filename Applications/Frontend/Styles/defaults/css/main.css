@@ -1,0 +1,715 @@
+/* RESET STYLES */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, a {
+	padding:0; margin:0; position:relative; outline: none;
+	}
+
+BODY {
+	padding:0; margin:0;
+	background: #050100 url(../images/wowmortal/cata_background.jpg) no-repeat top center;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#484139;
+	width:100%;
+	}
+	
+	/* Custom Font */
+	@font-face {
+    font-family: "Narrow";
+    src: url(ARIALN.TTF);
+	font-style: normal;
+    font-weight: normal;
+    }
+	
+	*:focus {outline: none;}
+	a {cursor: pointer; color:#5d5146; text-decoration:underline;}
+	a:hover { color:#ab3822; text-decoration: none;}
+	
+	h1 {font-size:22px; margin:5px 0;}
+    h2 {font-size:22px; margin:5px 0;}
+    h3 {font-size:20px; margin:5px 0;}
+    h4 {font-size:18px; margin:5px 0;}
+    h5 {font-size:16px; margin:5px 0;}
+    h6 {font-size:14px; margin:5px 0;}
+	
+	/*  -- FORM Style -- */
+	input[type='text'], input[type='password'], input[type='email'], input[type='submit'],input[type='button'], select, button { 
+	background:url(../images/wowmortal/input_imgs.gif); background-repeat:repeat-x; background-color:transparent;}
+	
+	input[type='text'], input[type='password'], input[type='email'], select {
+	background-position:0 0;
+	border: solid 1px #302f2e;
+	display:inline-block;
+	width:auto; height:34px;
+	min-width:280px !important;
+	padding: 0 15px 0 15px;
+	-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;
+	-webkit-box-shadow:inset 0 0 5px rgba(0,0,0,.3),inset 0 1px 0 rgba(0,0,0,.2), 0 0 4px rgba(0,0,0,.8);
+    box-shadow:inset 0 0 5px rgba(0,0,0,.3),inset 0 1px 0 rgba(0,0,0,.2), 0 0 4px rgba(0,0,0,.8);
+	font-size:13px;
+	color:#6a6057;
+	text-shadow: 0 1px 0 rgba(0,0,0,.3);
+	margin: 0 0 2px 0;
+	}
+	select {
+	height: auto;
+	padding:9px 15px 9px 15px;
+	}
+	input[type='text']:focus, input[type='password']:focus, input[type='email']:focus, select:focus {border: solid 1px #443e38;}
+	input[type='submit'], input[type='button'], button {
+	display:inline-block;
+	width: auto; height:35px;
+	background-position: 0 -36px;
+	padding:0 24px 1px 24px;
+	line-height:0;
+	border: none;
+	cursor: pointer;
+	font-family:Narrow, serif;
+	text-transform: uppercase;
+	font-size:14px;
+	font-weight: bold;
+	letter-spacing:1.2px;
+	color:rgba(0,0,0,.7);
+	text-shadow: 1px 1px 0 rgba(255,255,255,.05);
+	-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;
+	-webkit-box-shadow:inset 0 0 5px rgba(0,0,0,.3),inset 0 1px 0 rgba(0,0,0,.2), 0 0 4px rgba(0,0,0,.8);
+    box-shadow:inset 0 0 1px rgba(255,255,255,.1), 0 0 3px #000;
+	}
+	input[type='submit']:hover, input[type='button']:hover, button:hover {
+	background-position: 0 -72px;
+	}
+	
+	label {
+	display:inline-block;
+	padding: 0 0 7px 0;
+	}
+	label p {
+	font-size:11px;
+	color:#4d4339;
+	display:block;
+	padding: 0 0 3px 3px;
+	}
+	
+	
+/* -- HEADER -- */
+.header {width:100%; height:366px;}
+.header #top_bar {
+	width:100%; height:75px;
+	background:url(../images/wowmortal/top_bar.gif) repeat-x;
+	}
+.header #top_bar_cont_holder {width:1060px; height:75px;}
+
+.header #logo {
+	position:absolute;
+	top:0; left:-95px;
+	width:433px; height:113px;
+	background:url(../images/wowmortal/cata_logo.png) no-repeat;
+	}
+    .header #logo a {
+	display:block;
+	padding:0; margin:0;
+	width:214px; height:113px;
+	}
+
+.header #top_nav {
+	width:650px; height:75px;
+	list-style: none;
+	float:right;
+	}
+	.header #top_nav ul {
+	list-style: none;
+	float:right;
+	text-align:right;
+	}
+    .header #top_nav ul li {
+	display:block;
+	text-align:right;
+	float:left;
+	}
+    .header #top_nav ul li a {
+	display:inline-block;
+	min-width:45px;
+	text-align:center;
+	text-decoration: none;
+	color:#746558;
+	font-family:Narrow, serif;
+	font-size:15px;
+	letter-spacing:.3px;
+	padding: 28px 22px 27px 22px;
+	text-shadow: 0 1px 0 #000, 0 0 5px #000;
+	border-left:solid 1px #0a0909;
+	-webkit-box-shadow:inset 1px 0 0 rgba(255,255,255,.02), inset -1px 0 0 rgba(255,255,255,.02);
+    box-shadow:inset 1px 0 0 rgba(255,255,255,.02), inset -1px 0 0 rgba(255,255,255,.02);
+	}
+    .header #top_nav ul li a:hover {
+	color:#ab3822;
+	text-shadow: 0 1px 0 #000, 0 0 5px #000, 0 0 10px #ff5d2f;
+	text-decoration:none;
+	}
+	
+	.header #top_nav ul li a span { /* Hover style */
+	position:absolute;
+	top:0px; left:0px;
+	width:100%; height:75px;
+	background:url../images/wowmortal/top_menu_hover.png) center no-repeat;
+	opacity:0; _visibility:0; _visibility:0 !important;
+	-webkit-box-shadow:inset 1px 0 0 rgba(255,255,255,.02), inset -1px 0 0 rgba(255,255,255,.02);
+    box-shadow: 0 0 25px rgba(255,224,130,.12), inset 0 0 12px #000;
+	}
+	
+	.header #top_nav ul li:last-child a {
+	border-right:solid 1px #0a0909;
+	-webkit-box-shadow:inset 1px 0 0 rgba(255,255,255,.02), inset -1px 0 0 rgba(255,255,255,.02), 1px 0 0 rgba(255,255,255,.02);
+    box-shadow:inset 1px 0 0 rgba(255,255,255,.02), inset -1px 0 0 rgba(255,255,255,.02), 1px 0 0 rgba(255,255,255,.02);
+	}
+	.header #top_nav ul li:first-child a {
+	-webkit-box-shadow:inset 1px 0 0 rgba(255,255,255,.02), inset -1px 0 0 rgba(255,255,255,.02), -1px 0 0 rgba(255,255,255,.02);
+    box-shadow:inset 1px 0 0 rgba(255,255,255,.02), inset -1px 0 0 rgba(255,255,255,.02), -1px 0 0 rgba(255,255,255,.02);
+	}
+	
+
+/* -- Membership -- */
+
+.login_container {width:580px; height:34px; top:2px;}
+    .login_container #log_in {
+	position:absolute; 
+	width:134px; height:34px;
+	top:-2px; left:-2px;
+	z-index:99;
+	}
+    .login_container #log_in a {
+	display:block;
+	width:134px; height:34px;
+	background:url(../images/wowmortal/login_btn.png) no-repeat;
+	}
+	
+#login_form {
+	position:absolute;
+	left:-6px;
+	width:352px; height:276px;
+	background:url(../images/wowmortal/login_form_bg.png) no-repeat;
+	display: none;
+	z-index:1;
+	}
+    #login_form #cont {
+	padding:45px 20px 20px 20px;
+	}
+	#login_form #cont input[type='text'], #login_form #cont input[type='password'] { width:282px;}
+	#keepmelogin {
+	float:right;
+	padding:12px 0 0 10px;
+	cursor: pointer;
+	}
+	#keepmelogin input[type='checkbox'] {opacity: .7; border: none;}
+	#keepmelogin span { padding: 0 5px 2px 5px; top:-2px; color:#4f463c;}
+	
+	#login_form_links {
+	list-style: none; width:100%; text-align:center;
+	margin: 17px 0 0 0;
+	padding:7px 0 0 0;
+	border-top: solid 1px rgba(0,0,0,.5);
+	-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
+	}
+	#login_form_links li {
+	display:inline-block;}
+	#login_form_links li a {
+	display:inline-block;
+	font-size:12px;
+	text-transform: uppercase;
+	padding: 8px;
+	}
+	#login_form_links li a:hover {}
+	
+#logged_in_info {
+	display:inline-block;
+	width:auto; height: 34px;
+	padding: 0 30px 0 2px;
+	background:url(../images/wowmortal/logged_in_bar.png) right no-repeat;
+	top:1px; left:24px;
+	}
+	#logged_in_info p {
+	display:inline-block;
+	font-size:13px;
+	padding: 7px 9px 7px 0;
+	margin: 0 4px 0 0;
+	color:#48413a;
+	text-shadow: 0 1px 0 #000, 0 0 3px #000;
+	border-right: solid 1px rgba(255,255,255,.05);
+	}
+	#logged_in_info ul { display:inline-block; list-style: none;}
+	#logged_in_info ul li { display:inline;}
+	#logged_in_info ul li a {
+	display:inline-block;
+	font-size:11px;
+	text-transform: uppercase;
+	padding: 0 3px 0 3px;
+	color:#443b33;
+	text-decoration: none;
+	}
+	#logged_in_info ul li a:hover { text-decoration: none; color:#726356;}
+	
+	#logged_in_info ul li #logout { color:#b12307; padding: 0 0 0 12px ;}
+	#logged_in_info ul li #logout:hover { color:#b16b07;}
+	
+	
+
+/* -- BODY -- */
+
+.body {
+	width:1059px;
+	background:url(../images/wowmortal/body_r.png) repeat-y;
+	-webkit-box-shadow:inset 0 0 1px rgba(255,255,255,.05), 0 0 5px rgba(0,0,0,.5), 0 0 3px rgba(0,0,0,.6);
+    box-shadow:inset 0 0 1px rgba(255,255,255,.05), 0 0 5px rgba(0,0,0,.5), 0 0 3px rgba(0,0,0,.6);
+	overflow: hidden;
+	}
+	.body .top_line {
+	width:100%; height:1px;
+	background:#a92a02;
+	-webkit-box-shadow:0 0 1px #000;
+    box-shadow:0 0 1px #000;
+	}
+	
+	.body .main_side { width:730px; height:auto; overflow:hidden;}
+	.body .main_side #main_side {padding:6px;}
+	
+	.body .right_side { width:329px; height: auto; overflow: hidden;}
+	.body .right_side #right_side {padding:6px;}
+
+.sub_page_title_head {
+	height:60px; width:100%;
+	background:url(../images/wowmortal/slider_bg_cata.png) repeat-x bottom;
+	-webkit-box-shadow:0 0 12px #000;
+    box-shadow:0 0 12px #000;
+	}
+	.sub_page_title_head div {
+	width:100%; height:30px;
+	background:rgba(255,255,255,.01);
+	position:absolute;
+	top:0; left:0;
+	}
+	.sub_page_title_head p {
+	display:inline-block;
+	width: auto;
+	font-family:Narrow, serif;
+	font-size:19px;
+	letter-spacing:.8px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color:#776049;
+	text-shadow: 0 1px 0 #000, 0 0 8px #000, 0 0 8px #000;
+	padding: 18px 0 0 0;
+	margin: 0 0 0 22px;
+	}
+	.sub_page_title_head p span {
+	position:absolute;
+	left:0; bottom:3px;
+	height:15px; width:100%;
+	background:url(../images/wowmortal/text_grad.png) repeat-x bottom;
+	}
+
+#red_msg {
+	display:block;
+	padding:10px 0;
+	font-size:13px;
+	color:#7c0d0d;
+	text-align: center;
+	}
+#green_msg {
+	display:block;
+	padding:10px 0;
+	font-size:13px;
+	color:#225722;
+	text-align: center;
+	}
+	
+/* -- FOOTER -- */
+.footer {
+	width:1059px; height:120px;
+	background:url(../images/wowmortal/footer_cata.gif) no-repeat;
+	}
+	.footer #evil_logo {
+	width:58px; height:85px;
+	position:absolute;
+	top:14px; left:493px;
+	opacity: .7;
+	}
+	.footer #evil_logo:hover {background:url(../images/wowmortal/evil_logo_cata_hover.gif);}
+
+.footer #l_side {
+	width:475px;
+	float:left;
+	margin: 35px 0 0 0;
+	}
+.footer #r_side {
+	width:489px;
+	float:right;
+	margin: 40px 0 0 0;
+	}
+	.footer #r_side ul {list-style: none;}
+	.footer #r_side ul li { display:inline; margin: 0 3px 0 1px;}
+	.footer #r_side ul li a { display:inline-block;}
+	.footer #r_side ul li a:hover {}
+	
+	
+/* Sidebar BANNERS (easy nav) */
+.body .right_side #right_side #easy_nav {list-style: none;}
+.body .right_side #right_side #easy_nav li {
+	display:block;
+	margin: 0 0 6px 0;
+	}
+.body .right_side #right_side #easy_nav li a {
+	display:block;
+	width:317px; height:80px;
+	background-image:url(../images/wowmortal/bann_btns_r.png);
+	background-color:transparent;
+	background-repeat: no-repeat;
+	-webkit-box-shadow:0 0 3px #000, 0 0 1px #000;
+    box-shadow:0 0 3px #000, 0 0 1px #000;
+	}
+	.body .right_side #right_side #easy_nav li a:hover {
+	-webkit-box-shadow:0 0 3px #000, 0 0 1px #000, 0 0 10px rgba(255,255,255,.1);
+    box-shadow:0 0 3px #000, 0 0 1px #000, 0 0 10px rgba(255,255,255,.1);
+	}
+	
+	#easy_nav li #register { background-position: 0 0;}
+	#easy_nav li #register:hover { background-position: 0 -240px;}
+	
+	#easy_nav li #conn_guide {background-position: 0 -80px;}
+	#easy_nav li #conn_guide:hover {background-position: 0 -320px;}
+	
+	#easy_nav li #support_us {background-position: 0 -160px;}
+	#easy_nav li #support_us:hover {background-position: 0 -400px;}
+
+
+	
+/* The Nivo Slider styles */
+.nivoSlider {
+	position:relative;
+}
+.nivoSlider img {
+	position:absolute;
+	top:0px;
+	left:0px;
+}
+/* If an image is wrapped in a link */
+.nivoSlider a.nivo-imageLink {
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	border:0;
+	padding:0;
+	margin:0;
+	z-index:6;
+	display:none;
+}
+/* The slices and boxes in the Slider */
+.nivo-slice {
+	display:block;
+	position:absolute;
+	z-index:5;
+	height:100%;
+}
+.nivo-box {
+	display:block;
+	position:absolute;
+	z-index:5;
+}
+/* Caption styles */
+.nivo-caption {
+	position:absolute;
+	left:0px;
+	bottom:0px;
+	background:#000;
+	color:#fff;
+	opacity:0.8; /* Overridden by captionOpacity setting */
+	width:100%;
+	z-index:8;
+}
+.nivo-caption p {
+	padding:5px;
+	margin:0;
+}
+.nivo-caption a {
+	display:inline !important;
+}
+.nivo-html-caption {
+    display:none;
+}
+/* Direction nav styles (e.g. Next & Prev) */
+.nivo-directionNav a {
+	position:absolute;
+	top:45%;
+	z-index:9;
+	cursor:pointer;
+}
+.nivo-prevNav {
+	left:0px;
+}
+.nivo-nextNav {
+	right:0px;
+}
+/* Control nav styles (e.g. 1,2,3...) */
+.nivo-controlNav a {
+	position:relative;
+	z-index:9;
+	cursor:pointer;
+}
+.nivo-controlNav a.active {
+	font-weight:bold;
+}
+.slider_container {
+	width:718px; margin-bottom:6px;
+	background:url(../images/wowmortal/slider_bg_cata.png) repeat-x bottom;
+	-webkit-box-shadow:0 0 12px #000;
+    box-shadow:0 0 12px #000;
+	}
+
+
+	
+
+/* NEWS */
+
+.news {}
+
+.news .news_row, .sub_nohead_row, .sub_head_row {
+	width:718px; height:auto;
+	-webkit-box-shadow:0 0 5px #000, inset 0 0 1px rgba(255,255,255,.03);
+    box-shadow:0 0 5px #000, inset 0 0 1px rgba(255,255,255,.03);
+	margin: 0 0 6px 0;
+	background: rgba(255,255,255,.008);
+	}
+.news .news_head, .sub_head_row .sub_head_row_head {
+	width:718px; height:50px;
+	background:url(../images/wowmortal/news_head.png) no-repeat;
+	font-family:Narrow, serif;
+	font-size:17px;
+	color:#514438;
+	letter-spacing: 0.5px;
+	padding: 13px 0 0 15px;
+	text-shadow: 0 1px 0px #000, 0 0 6px #000;
+	}
+    .news .news_head p {
+	font-family:Narrow, serif;
+	font-size:17px;
+	color:#514438;
+	letter-spacing: 0.5px;
+	text-shadow: 0 1px 0px #000, 0 0 6px #000;
+	}
+.news .news_cont, .sub_nohead_row .sub_nohead_row_cont, .sub_head_row .sub_head_row_cont {
+	-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.01);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.01);
+	padding:6px;
+	text-shadow: 0 0 3px #000;
+	color:#484139;
+	}
+.news .news_foot {
+	border-top:solid 1px rgba(0,0,0,.5);
+	-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.01);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.01);
+	height:28px
+	}
+    .news .news_foot p { float: right; padding: 7px 10px 0 10px; font-size:11px; text-shadow:0 1px 0 rgba(0,0,0,.5); color:#24211e;}
+	
+.news_pagination {
+	text-align:right;
+	}
+	.news_pagination ul {
+		list-style: none;
+		padding: 6px 0 5px 0;
+		}
+	.news_pagination ul li { display:inline;}
+	.news_pagination ul li a {
+		background-image:url(../images/wowmortal/pagination.gif);
+		display:inline-block;
+		}
+	.news_pagination ul li .page {
+		width:20px; height:20px;
+		background-position:-76px 0;
+		-webkit-box-shadow:0 0 3px rgba(0,0,0,1);
+        box-shadow: 0 0 3px rgba(0,0,0,1);
+		text-align:center;
+		text-decoration: none;
+		color:#000;
+		text-shadow:1px 1px 0 rgba(255,255,255,.03), 0 0 4px rgba(0,0,0,.5);
+		font-size:13px;
+		padding: 3px 0 0 0;
+		}
+	    .news_pagination ul li .page:hover {
+		-webkit-box-shadow:0 0 1px rgba(0,0,0,1), 0 0 4px rgba(255,255,255,.05);
+        box-shadow: 0 0 1px rgba(0,0,0,1), 0 0 4px rgba(255,255,255,.05);
+		color:#514438;
+		text-shadow:1px 1px 0 rgba(0,0,0,.5), 0 0 4px rgba(0,0,0,.8);
+		}
+		/* ACTIVE STATE */
+	    .news_pagination ul li .page.active { 
+	    background-position:-56px 0;
+		color:#514438;
+		text-shadow:1px 1px 0 rgba(0,0,0,.5), 0 0 4px rgba(0,0,0,.8);
+	    }
+		
+		.news_pagination ul li .prev {
+		width:28px; height:20px;
+		background-position:-28px 0;
+		font-size:13px;
+		padding: 3px 0 0 0;
+		color:rgba(0,0,0,0);
+		-webkit-box-shadow:0 0 3px rgba(0,0,0,1);
+        box-shadow: 0 0 3px rgba(0,0,0,1);
+		}
+		.news_pagination ul li .prev:hover { background-position: 0 0 ;}
+	
+	    .news_pagination ul li .next {
+		width:28px; height:20px;
+		background-position:-96px 0;
+		font-size:13px;
+		padding: 3px 0 0 0;
+		color:rgba(0,0,0,0);
+		-webkit-box-shadow:0 0 3px rgba(0,0,0,1);
+        box-shadow: 0 0 3px rgba(0,0,0,1);
+		}
+		.news_pagination ul li .next:hover { background-position:-124px 0;}
+	
+
+	
+.subbox {
+	width:317px; height:auto;
+	-webkit-box-shadow:0 0 5px #000, inset 0 0 1px rgba(255,255,255,.03);
+    box-shadow:0 0 5px #000, inset 0 0 1px rgba(255,255,255,.03);
+	margin: 0 0 6px 0;
+	background: rgba(255,255,255,.008);
+	}
+    .subbox #sb_head {
+	width:317px; height:45px;
+	background:url(../images/wowmortal/sub_box_head.png);
+	}
+	.subbox #sb_head p {
+	font-family:Narrow, serif;
+	font-size:14px;
+	color:#514438;
+	text-transform:uppercase;
+	letter-spacing: 0.5px;
+	padding: 13px 0 0 15px;
+	text-shadow: 0 1px 0px #000, 0 0 6px #000;
+	}
+    .subbox #sb_cont {
+	width:305px; height:auto;
+	-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.01);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.01);
+	padding:6px;
+	text-shadow: 0 0 3px #000;
+	color:#484139;
+	}	
+	
+#realms {
+	padding:0px;
+	padding:0 0 2px 0;
+	}
+	
+	.realm_row {
+	width:317px; height:178px;
+	background:url(../images/wowmortal/realm_box_r.png) repeat-x bottom;
+	border-bottom: solid 1px #000;
+	-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
+	}
+	
+	.realm_row .row_1 { height:65px;}
+	  .realm_row .row_1 #status_on_off {
+	  display:inline-block;
+	  top:3px;
+	  }
+	  .realm_row .row_1 span {
+	  display:inline-block;
+	  padding: 0;
+	  margin: 12px 0 0 0;
+	  font-family:Narrow, serif;
+	  font-size:15px;
+	  color:#4f3e2f;
+	  text-transform:uppercase;
+ 	  letter-spacing: 0.5px;
+	  text-shadow: 0 1px 0 #000, 0 0 5px rgba(255,255,255,.2);
+	  }
+	  .realm_row .row_1 p {display:block; color:#302d2a; text-shadow: 0 1px 1px #000; padding:5px 0 0 0;}
+	  
+	.realm_row .row_2 { height:58px; padding: 5px 0 0 0;}
+	  .realm_row .row_2 span {
+	  display:block;
+	  padding: 5px 0 5px 0;
+	  color:#302d2a;
+	  text-shadow: 0 1px 1px #000;
+	  }
+	  .realm_row .row_2 span p { display:inline; color:#544d45;}
+	  
+	.realm_row .row_3 { height:50px;}
+	  .realm_row .row_3 .a_ico, .realm_row .row_3 .h_ico {
+	  width:21px; height:21px;
+	  background-image:url(../images/wowmortal/h_a_icons.png);
+	  background-color:transparent;
+	  position:absolute;
+	  }
+	  .realm_row .row_3 .a_ico { background-position: 0 0; top:14px; left:27px;}
+	  .realm_row .row_3 .h_ico { background-position: 0 -21px; top:14px; right:27px;}
+	  
+	   .realm_row .row_3 ul { list-style: none; height:21px; width:219px; top:14px;}
+	   .realm_row .row_3 ul li { height:21px; width:auto; display:block;}
+	   .realm_row .row_3 ul li p { display:block; padding:3px 5px 0 5px; color:#000; text-shadow: 1px 1px 0 rgba(255,255,255,.05);}
+	   
+	   .realm_row .row_3 ul .a_bar {background:url(../images/wowmortal/a_bar.png) no-repeat left; float:left; text-align:left;}
+	   .realm_row .row_3 ul .h_bar {background:url(../images/wowmortal/h_bar.png) no-repeat right; float:right; text-align:right;}
+
+
+
+/* --- TABLE --- */
+table.table {padding:0 !important;}
+
+table.table tr { width:717px;}
+table.table tr td {
+	vertical-align:top; 
+	padding:10px 8px; 
+	width: auto; height:auto;
+	text-align:center;
+	border-bottom: solid 1px rgba(255,255,255,.015);
+	-webkit-box-shadow:inset 0 -1px 0 rgba(0,0,0,.5), inset -1px 0 0 rgba(0,0,0,.5),1px 0 0 rgba(255,255,255,.015);
+    box-shadow:inset 0 -1px 0 rgba(0,0,0,.5), inset -1px 0 0 rgba(0,0,0,.5),1px 0 0 rgba(255,255,255,.015);
+	background:url(../images/wowmortal/table_n_row.png) repeat-x bottom;
+	text-shadow: 0 1px 0 #000, 0 0 4px #000;
+	}
+table.table th {
+	padding: 15px 8px;
+	font-size:11px;
+	text-transform: uppercase;
+	color:#443d36;
+	background:url(../images/wowmortal/table_head.png) repeat-x bottom;
+	}
+	
+/*Footer Loading Bar*/
+#footer_loading {
+position:fixed;
+bottom:0px;
+border-bottom:5px solid #227700;
+width:100%;
+display:none;
+}
+#footer_loading_text {
+width:100px;
+margin:0 auto;
+padding:8px;
+background-color:#227700;
+text-align:center;
+color:#11cc00;
+font-weight:bolder;
+-webkit-border-radius:7px 7px 0px 0px;
+-moz-border-radius:7px 7px 0px 0px;
+border-radius:7px 7px 0px 0px;
+border:1px solid #11cc00;
+border-bottom:0px;
+}
