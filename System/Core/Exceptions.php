@@ -76,30 +76,6 @@ class Exceptions {
 	}
 	
 	/**
-	 * Warning
-	 *
-	 * @access	private
-	 * @param	string	the heading
-	 * @param	string	the message
-	 * @param	string	the template name
-	 * @return	string
-	 */
-	function show_error_warn($heading, $message)
-	{
-		$message = implode('</p><p>', (!is_array($message) ? array($message) : $message));
-
-		if (ob_get_level() > $this->ob_level + 1)
-		{
-			ob_end_flush();
-		}
-		ob_start();
-		include(ERRORSPATH.$template.'.php');
-		$buffer = ob_get_contents();
-		ob_end_clean();
-		return $buffer;
-	}
-	
-	/**
 	 * Error
 	 *
 	 * @access	private
@@ -110,17 +86,10 @@ class Exceptions {
 	 */
 	function show_error($heading, $message)
 	{
-		$message = implode('</p><p>', (!is_array($message) ? array($message) : $message));
-
-		if (ob_get_level() > $this->ob_level + 1)
-		{
-			ob_end_flush();
-		}
-		ob_start();
-		include(ERRORSPATH.$template.'.php');
-		$buffer = ob_get_contents();
-		ob_end_clean();
-		return $buffer;
+		global $SESSION;
+		
+		$SESSION->setAttribute('title_error', $heading)
+		$SESSION->setAttribute('message_error' ,implode('</p><p>', (!is_array($message) ? array($message) : $message)));
 	}
 
 	/**
