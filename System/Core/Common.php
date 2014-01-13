@@ -137,13 +137,7 @@ if (!function_exists('show_error'))
 	function show_error($level, $heading = 'An Error Was Encountered', $message)
 	{
 		switch ($level)
-		{
-			case ERROR_LEVEL_WARN:
-				$_error = new System\Core\Exceptions();
-				echo $_error->show_error_warn($heading, $message);
-				exit(E_WARNING);
-			break;
-			
+		{			
 			case ERROR_LEVEL_ERROR:
 				$_error = new System\Core\Exceptions();
 				echo $_error->show_error($heading, $message);
