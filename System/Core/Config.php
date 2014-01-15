@@ -166,7 +166,7 @@ class Config
 	 * @param	DataBase_Handler
 	 * @return	void
 	 */
-	public function load_database_config(\System\Library\DataBase_Handler $db_handler)
+	public function load_database_config(\System\Library\Database\Database_Handler $db_handler)
 	{
 		// Fetch the config file
 		if (!file_exists(BASEPATH.'Config/database.php'))
@@ -187,31 +187,6 @@ class Config
 			if (isset($db[$key]))
 			{
 					$this->setItem(self::CFG_DATABASE, $key, $val);
-			}
-		}
-	}
-	
-	public function load_server_config()
-	{
-		// Fetch the config file
-		if (!file_exists(BASEPATH.'Config/server.php'))
-		{
-			show_error(500, 'Missing Server File', 'The server file does not exist.');
-		}
-
-		require(BASEPATH.'Config/server.php');
-
-		// Does the $config array exist in the file?
-		if (!isset($server) || !is_array($server))
-		{
-			show_error(500, 'Configuration Error', 'Your server file does not appear to be formatted correctly.');
-		}
-		
-		foreach ($server as $key => $val)
-		{
-			if (isset($server[$key]))
-			{
-					$this->setItem(self::CFG_SERVER, $key, $val);
 			}
 		}
 	}

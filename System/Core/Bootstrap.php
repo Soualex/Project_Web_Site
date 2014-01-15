@@ -29,6 +29,25 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 	{
 		@ini_set('magic_quotes_runtime', 0); // Kill magic quotes
 	}
+
+/*
+ * ------------------------------------------------------
+ *  Instantiate the config class
+ * ------------------------------------------------------
+ */
+	$CFG = new System\Core\Config();
+	
+	// Load the Generals Configurations
+	$CFG->load_general_config();
+
+	// Do we have any manually set config items in the index.php file?
+	if (isset($assign_to_config) && is_array($assign_to_config))
+	{
+		foreach ($assign_to_config as $key => $value)
+		{
+			$Config->setConfig(CFG_GENERAL, $key, $value);
+		}
+	}
 	
 /*
  * ------------------------------------------------------
@@ -42,29 +61,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  *  Instantiate the HTTPRequest class
  * ------------------------------------------------------
  */
-	$HTTPRESP = new System\Core\HTTPResponse();
-
-/*
- * ------------------------------------------------------
- *  Instantiate the config class
- * ------------------------------------------------------
- */
-	$CFG = new System\Core\Config();
-	
-	// Load the Generals Configurations
-	$CFG->load_general_config();
-	
-	// Load the Server Configurations
-	$CFG->load_server_config();
-
-	// Do we have any manually set config items in the index.php file?
-	if (isset($assign_to_config) && is_array($assign_to_config))
-	{
-		foreach ($assign_to_config as $key => $value)
-		{
-			$Config->setConfig(CFG_GENERAL, $key, $value);
-		}
-	}
+	$HTTPRESP = new System\Core\HTTPResponse($CFG);
 	
 /*
  * ------------------------------------------------------

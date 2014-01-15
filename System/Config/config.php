@@ -66,7 +66,7 @@ $config['uri_protocol']	= 'AUTO';
 |
 */
 
-$config['url_suffix'] = '/site-v2/';
+$config['url_suffix'] = '/Project_Web_Site';
 
 /*
 |--------------------------------------------------------------------------

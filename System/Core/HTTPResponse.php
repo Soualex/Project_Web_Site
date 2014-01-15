@@ -6,7 +6,13 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class HTTPResponse
 {
-	protected $page;
+	private $page;
+	private $_CFG;
+	
+	public function __construct(\System\Core\Config $_CFG)
+	{
+		$this->_CFG = $_CFG;
+	}
 	
 	public function addHeader($header) 
 	{
@@ -15,7 +21,9 @@ class HTTPResponse
  
 	public function redirect($location) 
 	{
-		header('Location: '.$location);
+		global $CFG;
+		
+		header('Location: '.$this->_CFG->getItem(CFG_GENERAL, 'base_url').$location);
 		exit;
 	}
 	

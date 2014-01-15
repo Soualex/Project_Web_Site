@@ -5,20 +5,20 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 $active_group = "site";
 $active_record = TRUE;
 
-$db["site"]["hostname"] = "127.0.0.1";
-$db["site"]["username"] = "root";
-$db["site"]["password"] = "laraki";
-$db["site"]["database"] = "site";
-$db["site"]["dbdriver"] = "PDO";
-$db["site"]["dbprefix"] = "";
-$db["site"]["pconnect"] = TRUE;
-$db["site"]["db_debug"] = TRUE;
-$db["site"]["cache_on"] = FALSE;
-$db["site"]["cachedir"] = "";
-$db["site"]["char_set"] = "utf8";
-$db["site"]["dbcollat"] = "utf8_general_ci";
-$db["site"]["swap_pre"] = "";
-$db["site"]["autoinit"] = TRUE;
-$db["site"]["stricton"] = FALSE;
+$db["Site"]["hostname"] = "127.0.0.1";
+$db["Site"]["username"] = "root";
+$db["Site"]["password"] = "laraki";
+$db["Site"]["database"] = "site";
+$db["Site"]["dbdriver"] = "PDO";
+$db["Site"]["dbprefix"] = "";
+$db["Site"]["pconnect"] = TRUE;
+$db["Site"]["db_debug"] = TRUE;
+$db["Site"]["cache_on"] = FALSE;
+$db["Site"]["cachedir"] = "";
+$db["Site"]["char_set"] = "utf8";
+$db["Site"]["dbcollat"] = "utf8_general_ci";
+$db["Site"]["swap_pre"] = "";
+$db["Site"]["autoinit"] = TRUE;
+$db["Site"]["stricton"] = FALSE;
 
 ?>

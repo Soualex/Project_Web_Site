@@ -30,7 +30,7 @@ class Page
 	{
 		if (!is_string($var) || is_numeric($var) || empty($var))
 		{
-			show_error(500, 'Invalid Argument', 'The variable name must be a string of characters not empty.');
+			show_error(ERROR_LEVEL_FATAL, 'Invalid Argument', 'The variable name must be a string of characters not empty.');
 		}
 
 		$this->vars[$var] = $value;
@@ -40,7 +40,7 @@ class Page
 	{
 		if (empty($view) || empty($name) || !file_exists($view))
 		{
-			show_error(500, 'Invalid View', 'The view specified in "Page::addView()" is invalid.');
+			show_error(ERROR_LEVEL_FATAL, 'Invalid View', 'The view specified in "Page::addView()" is invalid.');
 		}
  
 		$this->views[$name] = $view;
@@ -50,7 +50,7 @@ class Page
 	{
 		if (empty($tpl_path) || !file_exists($tpl_path))
 		{
-			show_error(500, 'Invalid Template', 'The template specified in "Page::setTemplate()" is invalid.');
+			show_error(ERROR_LEVEL_FATAL, 'Invalid Template', 'The template specified in "Page::setTemplate()" is invalid.');
 		}
  
 		$this->template = $tpl_path;

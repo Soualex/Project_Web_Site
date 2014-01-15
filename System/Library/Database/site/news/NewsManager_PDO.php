@@ -1,10 +1,10 @@
 <?php
 
-namespace System\Library\Models;
+namespace System\Library\Database\Site\News;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  
-use \System\Library\Entities\News;
+use \System\Library\Database\Site\News\News;
  
 class NewsManager_PDO extends NewsManager
 {
@@ -16,7 +16,7 @@ class NewsManager_PDO extends NewsManager
 			$sql .= ' LIMIT '.(int) $limite.' OFFSET '.(int) $debut;
 
 		$query = $this->dao->query($sql);
-		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Entities\News');
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\News\News');
 
 		$listNews = $query->fetchAll();
 		
@@ -37,7 +37,7 @@ class NewsManager_PDO extends NewsManager
 		$query->bindValue(':id', (int) $id, \PDO::PARAM_INT);
 		$query->execute();
 
-		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Entities\News');
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\News\News');
 
 		if ($news = $query->fetch()) 
 		{

@@ -18,31 +18,18 @@ class Router
 	
 	protected $_routes = array();
 	
-	public function __construct(\System\Core\Config $CFG, \System\Library\DataBase_Handler $DB)
+	public function __construct(\System\Core\Config $CFG, \System\Library\Database\Database_Handler $DB)
 	{
 		$this->CFG = $CFG;
 		$this->DB = $DB;
 		
-		// Get the routes configuation from database
-		$query = $DB->getManager('route', 'site')->getRoutes();
-		$routes = $query->fetchAll();
-		$query->closeCursor();
+		// Get the routes class from database
+		$routes = $DB->getManager('Routes', 'Site')->getList();
 		
-		// Create a new Route class
 		foreach ($routes as $route)
 		{
-			// Put the variables in an array
-			$vars = array();
-			if (!empty($route['vars']))
-			{
-				$vars = explode(',', $route['vars']);
-			}
-			
-			// Create the Route class
-			$routeClass = new \System\Library\Route($route['id'], $route['uri'], $route['application'], $route['module'], $route['action'], $vars, $route['security']);
-		 	
 			// Add a new Route class to the Router class
-			$this->addRoute($routeClass);
+			$this->addRoute($route);
 		}
 	}
 	
@@ -53,7 +40,7 @@ class Router
 	 * @access	public
 	 * @param	Route	the route to add
 	 */
-	public function addRoute(\System\Library\Route $route)
+	public function addRoute(\System\Library\Database\Site\Routes\Routes $route)
 	{
 		if (!empty($route) && !in_array($route, $this->_routes))
 		{
@@ -79,7 +66,7 @@ class Router
 				{
 					if ($route->hasVarsNames())
 					{
-						$varsNames = $route->varsNames();
+						$varsNames = $route->offsetGet('varsNames');
 						$listVars = array();
 						   
 						foreach ($varsValues as $key => $match)
@@ -90,7 +77,7 @@ class Router
 							}
 						}
 			
-						$route->setVars($listVars);
+						$route->offsetSet('vars', $listVars);
 					}
 					 
 					return $route;

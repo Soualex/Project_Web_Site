@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Library;
+namespace System\Library\Database;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
@@ -40,16 +40,9 @@ class Database_Handler
 	}
 	
 	public function getConfigOf($db, $item)
-	{
-		foreach ($this->config->getItem(CFG_DATABASE, $db) as $key => $value)
-		{
-			if ($key == $item)
-			{
-				return $value;
-			}
-		}
-		
-		return NULL;
+	{		
+		$dbconfig = $this->config->getItem(CFG_DATABASE, $db);
+		return $dbconfig[$item];
 	}
 	
 	public function getInstanceOf($db)
@@ -78,20 +71,20 @@ class Database_Handler
 		return $db;
 	}
 	
-	public function getManager($manager, $db)
+	public function getManager($table, $db)
 	{
-		if (!is_string($manager) || empty($manager) || !is_string($db) || empty($db))
+		if (!is_string($table) || empty($table) || !is_string($db) || empty($db))
 		{
 			show_error(500, 'Manager Error', 'The manager specified is invalid.');
 		}
 		 
-		if (!isset($this->_managers[${$db.'.'.$manager}]))
+		if (!isset($this->_managers[$db.'.'.$table]))
 		{			
-			$manager = '\System\Library\Database\\'.$db.'\\'.$manager.'\\'.$manager.'Manager_'.$this->getConfigOf($db, 'driver');
-		  	$this->_managers[${$db.'.'.$manager}] = new $manager($this->getInstanceOf($db));
+			$table = '\System\Library\Database\\'.$db.'\\'.$table.'\\'.$table.'Manager_'.$this->getConfigOf($db, 'dbdriver');
+		  	$this->_managers[$db.'.'.$table] = new $table($this->getInstanceOf($db));
 		}
 		 
-		return $this->_managers[${$db.'.'.$manager}];
+		return $this->_managers[$db.'.'.$table];
 	}
 }
 

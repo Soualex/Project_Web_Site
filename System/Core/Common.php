@@ -144,7 +144,7 @@ if (!function_exists('show_error'))
 				exit(E_USER_ERROR);
 			break;
 			
-			case ERROR_LEVEL_FATAL
+			case ERROR_LEVEL_FATAL:
 				$_error = new System\Core\Exceptions();
 				echo $_error->show_error_fatal($heading, $message);
 				exit(E_ERROR);
@@ -434,13 +434,9 @@ if (!function_exists('isBannned'))
 		global $HTTPRQST, $DB;
 			
 		// Get the routes configuation from database
-		$query = $DB->getInstanceOf('site')->prepare('SELECT ip, time FROM banip WHERE ip = :ip');
-		$query->bindValue(':ip', $HTTPRQST->getUserIP(), \PDO::PARAM_STR);
-		$query->execute();
-		$data = $query->fetch();
-		$query->closeCursor();
+		$data = $DB->getManager('Ip_banned', 'Site')->get($HTTPRQST->getUserIP());
 		
-		if (!empty($data) && strtotime($data['unbandate']) > time())
+		if (!empty($data) && strtotime($data->offsetGet('unban_date')) > time())
 		{
 			return TRUE;	
 		}

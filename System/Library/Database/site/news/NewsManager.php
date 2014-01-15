@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Library\Models;
+namespace System\Library\Database\Site\News;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  

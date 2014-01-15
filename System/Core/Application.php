@@ -14,7 +14,7 @@ class Application
 	private $db_handler;
 	private $page;
 
-	public function __construct(\System\Library\Route $route, \System\Core\HTTPRequest $httpRequest, \System\Core\HTTPResponse $httpResponse, \System\Core\Session $session, \System\Core\Config $config, \System\Library\Database\Database_Handler $db_handler) 
+	public function __construct(\System\Library\Database\Site\Routes\Routes $route, \System\Core\HTTPRequest $httpRequest, \System\Core\HTTPResponse $httpResponse, \System\Core\Session $session, \System\Core\Config $config, \System\Library\Database\Database_Handler $db_handler) 
 	{
 		// Set the globals variables
 		$this->route = $route;
@@ -43,11 +43,11 @@ class Application
 			$this->route->uri() != $this->config->getItem(CFG_GENERAL, 'authentification_URI') && 
 			$this->httpRequest->getUserIP() != '127.0.0.1')
 		{
-			show_error(403, 'Acess Denied', 'The site is accessible to the users who have the required access level.');
+			show_error(ERROR_LEVEL_ERROR, 'Acess Denied', 'The site is accessible to the users who have the required access level.');
 		}
 		
 		// Merge Route::vars into $_GET
-		$_GET = array_merge($_GET, $this->route->vars());
+		$_GET = array_merge($_GET, $this->route->offsetGet('vars'));
 		
 		// Instantiate the modules require by the template
 		$main_module = $this->getController($this->route->module(), $this->route->action());
@@ -67,7 +67,7 @@ class Application
 		$this->page->addVar('session', $this->session);
 		
 		// Set the template
-		$this->page->setTemplate(APPPATH.$this->name().'/Styles/'.$this->config->getItem(CFG_APP, 'style').'/templates/'.$this->config->getItem(CFG_APP, 'template').'.php');
+		$this->page->setTemplate(APPPATH.$this->name().'/Styles/'.$this->config->getItem(CFG_APP, 'style').'/layout.php');
 		
 		// The modules are loaded so we can send the page to the user
 		$this->httpResponse->setPage($this->page);

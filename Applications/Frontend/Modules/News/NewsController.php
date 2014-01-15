@@ -12,7 +12,7 @@ class NewsController extends \System\Library\BackController
 
 		$this->app()->page()->addVar('title', 'Actualités');
 
-		$manager = $this->app()->db_handler()->getManagerOf('site', 'site');
+		$manager = $this->app()->db_handler()->getManager('News', 'Site');
 
 		$listNews = $manager->getList();
 

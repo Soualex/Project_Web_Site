@@ -1,8 +1,7 @@
 <?php
 
-$frontend['style'] = 'defaults';
-$frontend['modules_require'] = array('Server' => 'Statue');
-$frontend['template'] = 'layout';
+$frontend['style'] = 'Default';
+$frontend['modules_require'] = array();
 $frontend['articles_per_page'] = 10;
 
 ?>
