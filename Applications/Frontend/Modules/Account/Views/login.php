@@ -1,10 +1,16 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Document sans titre</title>
-</head>
+<article>
+	<form method="post" action="">
+		<fieldset>
+			<legend>Formulaire de connexion :</legend>
 
-<body>
-</body>
-</html>
+			<label for="username">Nom d'utilisateur</label>
+			<input type="text" name="username" id="username" required autofocus />
+			<br />
+						
+			<label for="password">Mot de passe :</label>
+			<input type="text" name="password" id="password" />
+		</fieldset>
+			   
+		<input type="submit" value="Envoyer" />
+	</form>
+</article>

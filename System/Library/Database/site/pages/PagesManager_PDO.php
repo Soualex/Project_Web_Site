@@ -1,20 +1,31 @@
 <?php
 
-namespace System\Library\Models;
+namespace System\Library\Database\Site\Pages;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  
-use \Library\Entities\Page;
+use \System\Library\Database\Site\Pages\Page;
  
 class PagesManager_PDO extends PagesManager
 {
-	public function get($name) 
+	public function getList() 
 	{
-		$query = $this->dao->prepare('SELECT id, title, content, name, security FROM custom_pages WHERE name = :name');
-		$query->bindValue(':name', secureDB($name), \PDO::PARAM_STR);
+		$query = $this->dao->query('SELECT id, url, name, content, security FROM pages');
+
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Pages\Page');
+		
+		$pages = $query->fetchAll();
+
+		return $pages;
+	}
+	
+	public function get($url) 
+	{
+		$query = $this->dao->prepare('SELECT id, url, name, content, security FROM pages WHERE name = :url');
+		$query->bindValue(':url', secureDB($url), \PDO::PARAM_STR);
 		$query->execute();
 
-		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Entities\Page');
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Pages\Page');
 		
 		$page = $query->fetch();
 

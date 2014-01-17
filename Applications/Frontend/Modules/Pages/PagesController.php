@@ -1,23 +1,23 @@
 <?php
 
-namespace Applications\Frontend\Modules\Page;
+namespace Applications\Frontend\Modules\Pages;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class PageController extends \System\Library\BackController
+class PagesController extends \System\Library\BackController
 {
 	public function executeIndex(\System\Core\HTTPRequest $request)
 	{
 		$this->app()->page()->addVar('title', 'Pages Personnalisées');
 		
-		$page = $this->app()->db_handler()->getManager('Page', 'Site')->getList();
+		$pages = $this->app()->db_handler()->getManager('Pages', 'Site')->getList();
 		
 		$this->app()->page()->addVar('custom_pages', $pages);
 	}
 	
 	public function executeShow(\System\Core\HTTPRequest $request)
 	{
-		$page = $this->app()->db_handler()->getManager('Page', 'Site')->get($request->getData('page_name'));
+		$page = $this->app()->db_handler()->getManager('Pages', 'Site')->get($request->getData('page_name'));
 
 		if (!empty($page))
 		{

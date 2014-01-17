@@ -1,28 +1,22 @@
 <?php
 
-namespace System\Library\Entities;
+namespace System\Library\Database\Site\Account;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  
-class Accounts extends \System\Library\Entity
+class Account extends \System\Library\Entity
 {
 	protected $username;
-	protected $sha_pass_hash;
+	protected $password;
+	protected $rank;
 	protected $email;
 	protected $joindate;
+	protected $joinip;
 	protected $last_login;
 	protected $last_ip;
 	protected $locked;
 	
 	// SETTERS
-	
-	public function setId($id)
-	{
-		if (is_int($id) && !empty($id) && $id > 0)
-			$this->id = $id;
-		else
-			$this->errors['id'] = "L'ID de l'utilisateur doit être un nombre entier positif.";
-	}
 	
 	public function setUsername($username)
 	{
@@ -30,6 +24,22 @@ class Accounts extends \System\Library\Entity
 			$this->username = $username;
 		else
 			$this->errors['username'] = "Le nom d'utilisateur doit être une chaîne de caractères.";
+	}
+	
+	public function setPassword($password)
+	{
+		if (!empty($password) && is_string($password))
+			$this->password = $password;
+		else
+			$this->errors['password'] = "Mot de passe incorrecte.";
+	}
+	
+	public function setRank($rank)
+	{
+		if (is_int($rank) && !empty($rank) && $rank >= 0)
+			$this->rank = $rank;
+		else
+			$this->errors['rank'] = "Le rang de l'utilisateur doit être un nombre entier positif.";
 	}
 	
 	public function setEmail($email)
@@ -40,17 +50,17 @@ class Accounts extends \System\Library\Entity
 			$this->errors['email'] = "Votre adresse email doit être de la forme \"exemple@exemple.net\".";
 	}
 	
-	public function setSha_pass_hash($sha_pass_hash)
-	{
-		if (!empty($sha_pass_hash) && is_string($sha_pass_hash))
-			$this->sha_pass_hash = $sha_pass_hash;
-		else
-			$this->errors['sha_pass_hash'] = "Mot de passe incorrecte.";
-	}
-	
 	public function setJoindate(\DateTime $joindate)
 	{
 		$this->joindate = $joindate;
+	}
+	
+	public function setJoinip($ip)
+	{
+		if (!empty($ip) && is_string($ip))
+		{
+			$this->ip = $ip;
+		}
 	}
 	
 	public function setLast_login(\DateTime $last_login)
@@ -79,9 +89,14 @@ class Accounts extends \System\Library\Entity
 		return $this->username;
 	}
 	
-	public function sha_pass_hash()
+	public function password()
 	{
-		return $this->sha_pass_hash;
+		return $this->password;
+	}
+	
+	public function rank()
+	{
+		return $this->rank;
 	}
 	
 	public function email()
@@ -92,6 +107,11 @@ class Accounts extends \System\Library\Entity
 	public function joindate()
 	{
 		return $this->joindate;
+	}
+	
+	public function joinip()
+	{
+		return $this->joinip;
 	}
 	
 	public function last_login()

@@ -1,20 +1,26 @@
 <?php
 
-namespace System\Library\Entities;
+namespace System\Library\Database\Site\Pages;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  
-class Pages extends \System\Library\Entity
+class Page extends \System\Library\Entity
 {
-	protected $title;
-	protected $content;
+	protected $url;
 	protected $name;
+	protected $content;
 	protected $security;
 	
 	
 	// SETTERS
 	
-	public function setTitle($title)
+	public function setUrl($name)
+	{
+		if (!empty($name) && is_string($name))
+			$this->name = $name;
+	}
+	
+	public function setName($title)
 	{
 		if (!empty($title) && is_string($title))
 			$this->title = $title;
@@ -26,12 +32,6 @@ class Pages extends \System\Library\Entity
 			$this->title = $content;
 	}
 	
-	public function setName($name)
-	{
-		if (!empty($name) && is_string($name))
-			$this->name = $name;
-	}
-	
 	public function setSecurity($security)
 	{
 		$this->security = (int) $security;
@@ -40,7 +40,12 @@ class Pages extends \System\Library\Entity
 	
 	// GETTERS
 	
-	public function title()
+	public function url()
+	{
+		return $this->name;
+	}
+	
+	public function name()
 	{
 		return $this->title;
 	}
@@ -48,11 +53,6 @@ class Pages extends \System\Library\Entity
 	public function content()
 	{
 		return $this->content;
-	}
-	
-	public function name()
-	{
-		return $this->name;
 	}
 	
 	public function security()

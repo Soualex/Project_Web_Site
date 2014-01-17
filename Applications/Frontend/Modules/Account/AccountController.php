@@ -8,12 +8,44 @@ class AccountController extends \System\Library\BackController
 {
 	public function executeLogin(\System\Core\HTTPRequest $request)
 	{
-	
+		$this->app()->page()->addVar('page_name', 'Connexion');
+		
+		if (!$this->app()->session()->isAuthenticated())
+		{		
+			if ($request->postExists('username') && $request->postExists('password'))
+			{
+				$account = $this->app()->db_handler()->getManager('Account', 'Site')->getUsername($request->postData('username'));
+				
+				if (!empty($account))
+				{
+					if ($account->offsetGet('password') == $request->postData('password'))
+					{
+						$this->app()->session()->setAttribute('id', $account->offsetGet('id'));
+						$this->app()->session()->setAttribute('username', $account->offsetGet('username'));
+						$this->app()->session()->setAttribute('email', $account->offsetGet('email'));
+						$this->app()->session()->setAttribute('rank', $account->offsetGet('rank'));
+						$this->app()->session()->setAttribute(TRUE);
+					}
+					else
+					{
+						$this->app()->page()->addVar('login_error_password', 'Mot de passe incorrecte.');
+					}
+				}
+				else
+				{
+					$this->app()->page()->addVar('login_error_username', 'Nom d\'utilisateur incorrecte.');
+				}
+			}
+		}
+		else
+		{
+			show_error(ERROR_LEVEL_ERROR, 'Déjà Connecté', 'Vous êtes déjà connecté; Veulliez vous déconnecter d\'abord pour vous connectez à un autre compte.');
+		}
 	}
 	
 	public function executeRegister(\System\Core\HTTPRequest $request)
 	{
-		$this->page()->addVar('title', 'Inscription');
+		$this->page()->addVar('page_name', 'Inscription');
 		
 		if (!$this->app()->session()->isAuthenticated())
 		{		

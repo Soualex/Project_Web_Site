@@ -1,10 +1,10 @@
 <?php
 
-namespace System\Library\Models;
+namespace System\Library\Database\Site\Account;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  
-use \System\Library\Entities\Account;
+use \System\Library\Database\Site\Account\Account;
  
 class AccountManager_PDO extends AccountManager
 {
@@ -17,7 +17,7 @@ class AccountManager_PDO extends AccountManager
 		}
 
 		$query = $this->dao->query($sql);
-		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Entities\Account');
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Account\Account');
 
 		$listeNews = $query->fetchAll();
 
@@ -38,7 +38,7 @@ class AccountManager_PDO extends AccountManager
 		$query->bindValue(':id', (int) $id, \PDO::PARAM_INT);
 		$query->execute();
 
-		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Entities\Account');
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Account\Account');
 		
 		if ($account = $query->fetch())
 		{
@@ -57,7 +57,7 @@ class AccountManager_PDO extends AccountManager
 		$query->bindValue(':username', $username, \PDO::PARAM_STR);
 		$query->execute();
 
-		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Entities\Account');
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Account\Account');
 
 		return $query->fetch();
 	}
@@ -68,12 +68,12 @@ class AccountManager_PDO extends AccountManager
 		$query->bindValue(':email', $email, \PDO::PARAM_STR);
 		$query->execute();
 
-		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Entities\Account');
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Account\Account');
 
 		return $query->fetch();
 	}
 	
-	public function add(\System\Library\Entities\Account $account) 
+	public function add(\System\Library\Database\Site\Account\Account $account) 
 	{
 		global $HTTPRQST;
 		
@@ -102,14 +102,6 @@ class AccountManager_PDO extends AccountManager
 		$query->execute();
 		
 		$query->closeCursor();
-	}
-	
-	public function countOnlinePlayers() 
-	{
-		$query = $this->dao->query('SELECT logged FROM account WHERE logged = 1');
-		$data = $query->fetchAll();
-		
-		return count($data);
 	}
 }
 
