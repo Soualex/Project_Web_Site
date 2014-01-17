@@ -57,6 +57,11 @@ class Session
 	{
 		return isset($_SESSION['flash']);
 	}
+	
+	public function hasAttribute($attr)
+	{
+		return isset($_SESSION[$attr]);
+	}
 	   
 	public function isAuthenticated() 
 	{
@@ -81,6 +86,11 @@ class Session
 	public function setFlash($value) 
 	{
 		$_SESSION['flash'] = $value;
+	}
+	
+	public function unsetAttribute($attr)
+	{
+		unset($_SESSION[$attr]);
 	}
 	
 	public function setCookie($name, $value = '', $expire = 0, $path = NULL, $domain = NULL, $secure = FALSE, $httpOnly = TRUE) 

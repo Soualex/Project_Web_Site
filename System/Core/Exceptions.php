@@ -88,8 +88,8 @@ class Exceptions {
 	{
 		global $SESSION, $HTTPRESP;
 		
-		$SESSION->setAttribute('title_error', $heading);
-		$SESSION->setAttribute('message_error' ,implode('</p><p>', (!is_array($message) ? array($message) : $message)));
+		$SESSION->setAttribute('error_title', $heading);
+		$SESSION->setAttribute('error_message', implode('</p><p>', (!is_array($message) ? array($message) : $message)));
 		
 		$HTTPRESP->redirect('error');
 	}
