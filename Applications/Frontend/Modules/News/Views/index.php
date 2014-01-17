@@ -1,23 +1,15 @@
+</p class="location">Navigation : <a href="<?php echo $config->getItem(CFG_GENERAL, 'base_url'); ?>" >Accueil</a> -> Actualités</p>
+
 <?php
 foreach ($listNews as $news)
 {
 ?>
 
-<div id="newscontainer">
-	<div class="news_row">
-		<div class="news_head"><p><?php echo html_escape($news->offsetGet('title')); ?></p></div>
-        
-		<div class="news_cont"><?php echo nl2br(html_escape($news->offsetGet('content'))); ?></div>
-        
-		<div class="news_foot"><p>Le <?php echo $news->offsetGet('add_date')->format('d/m/Y à H\Hi'); ?>, par <?php // echo $news->offsetGet('author')->offsetGet('username'); ?></p></div>
-	</div>
-    
-	<div class="news_pagination">
-		<ul></ul>
-    </div>
-</div>
-
-<div class="pagestablecontainer"><div class="pagestablebox" id="newspagestable"></div></div>
+	<article>
+		<h2><?php echo $news->offsetGet('title'); ?></h2>
+		<em>Le <?php echo $news->offsetGet('add_date'); ?> par <?php echo $news->offsetGet('author')->offsetGet('username'); ?>.</em>
+		<p><?php echo nl2br($news->offsetGet('content')); ?></p>
+	</article>
 
 <?php
 }

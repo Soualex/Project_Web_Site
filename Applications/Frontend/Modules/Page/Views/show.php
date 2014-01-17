@@ -1,15 +1,9 @@
-<div id="newscontainer">
-	<div class="news_row">
-		<div class="news_head"><p><?php echo html_escape($page->offsetGet('title')); ?></p></div>
+<?php echo html_escape($custom_page->offsetGet('title')); ?>
         
-		<div class="news_cont"><?php echo nl2br(html_escape($page->offsetGet('content'))); ?></div>
-        
-		<div class="news_foot"></div>
-	</div>
-    
-	<div class="news_pagination">
-		<ul></ul>
-    </div>
-</div>
+<?php echo nl2br(html_escape($custom_page->offsetGet('content'))); ?>
 
-<div class="pagestablecontainer"><div class="pagestablebox" id="newspagestable"></div></div>
+</p class="location">Navigation : <a href="<?php echo $config->getItem(CFG_GENERAL, 'base_url'); ?>" >Accueil</a> -> <a href="<?php echo $config->getItem(CFG_GENERAL, 'base_url').'page'; ?>" >Pages Personnalisées</a> -> <?php echo html_escape($custom_page->offsetGet('title')); ?></p>
+
+<article>
+	<?php echo '<p>'.nl2br(html_escape($custom_page->offsetGet('content'))).'</p>'; ?>
+</article>
