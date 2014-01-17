@@ -10,7 +10,7 @@ class NewsController extends \System\Library\BackController
 	{
 		$nombreNews = $this->app()->config()->getItem(CFG_APP, 'nombre_news');
 
-		$this->app()->page()->addVar('title', 'Actualités');
+		$this->app()->page()->addVar('page_name', 'Actualités');
 
 		$manager = $this->app()->db_handler()->getManager('News', 'Site');
 
