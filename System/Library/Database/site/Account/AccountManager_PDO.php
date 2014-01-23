@@ -34,7 +34,7 @@ class AccountManager_PDO extends AccountManager
 	
 	public function getId($id) 
 	{
-		$query = $this->dao->prepare('SELECT id, username, sha_pass_hash, email, joindate, last_login, last_ip, locked FROM account WHERE id = :id');
+		$query = $this->dao->prepare('SELECT * FROM account WHERE id = :id');
 		$query->bindValue(':id', (int) $id, \PDO::PARAM_INT);
 		$query->execute();
 
@@ -53,7 +53,7 @@ class AccountManager_PDO extends AccountManager
 	
 	public function getUsername($username) 
 	{
-		$query = $this->dao->prepare('SELECT id, username, sha_pass_hash, email, joindate, last_login, last_ip, locked FROM account WHERE username = :username');
+		$query = $this->dao->prepare('SELECT * FROM account WHERE username = :username');
 		$query->bindValue(':username', $username, \PDO::PARAM_STR);
 		$query->execute();
 
@@ -77,13 +77,13 @@ class AccountManager_PDO extends AccountManager
 	{
 		global $HTTPRQST;
 		
-		$query = $this->dao->prepare('INSERT INTO account(username, sha_pass_hash, email, joindate, last_login, last_ip) 
-												  VALUES(:username, :sha_pass_hash, :email, NOW(), NOW(), :last_ip)');
+		$query = $this->dao->prepare('INSERT INTO account(username, email, password, joinip) 
+												  VALUES(:username, :email, :password, :joinip)');
 												  
 		$query->bindValue(':username', $account->offsetGet('username'), \PDO::PARAM_STR);
-		$query->bindValue(':sha_pass_hash', $account->offsetGet('sha_pass_hash'), \PDO::PARAM_STR);
 		$query->bindValue(':email', $account->offsetGet('email'), \PDO::PARAM_STR);
-		$query->bindValue(':last_ip', $HTTPRQST->getUserIP(), \PDO::PARAM_STR);
+		$query->bindValue(':password', $account->offsetGet('password'), \PDO::PARAM_STR);
+		$query->bindValue(':joinip', $HTTPRQST->getUserIP(), \PDO::PARAM_STR);
 		
 		$query->execute();
 		

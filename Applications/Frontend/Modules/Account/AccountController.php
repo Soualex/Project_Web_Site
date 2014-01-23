@@ -18,13 +18,13 @@ class AccountController extends \System\Library\BackController
 				
 				if (!empty($account))
 				{
-					if ($account->offsetGet('password') == $request->postData('password'))
+					if ($account->offsetGet('password') == hash_password($request->postData('password')))
 					{
 						$this->app()->session()->setAttribute('id', $account->offsetGet('id'));
 						$this->app()->session()->setAttribute('username', $account->offsetGet('username'));
 						$this->app()->session()->setAttribute('email', $account->offsetGet('email'));
 						$this->app()->session()->setAttribute('rank', $account->offsetGet('rank'));
-						$this->app()->session()->setAttribute(TRUE);
+						$this->app()->session()->setAuthenticated(TRUE);
 					}
 					else
 					{
@@ -45,41 +45,55 @@ class AccountController extends \System\Library\BackController
 	
 	public function executeRegister(\System\Core\HTTPRequest $request)
 	{
-		$this->page()->addVar('page_name', 'Inscription');
+		$this->app()->page()->addVar('page_name', 'Inscription');
 		
 		if (!$this->app()->session()->isAuthenticated())
 		{		
-			if ($request->postExists('username') && $request->postExists('password') && $request->postExists('password_repeat') && $request->postExists('email'))
+			if ($request->postExists('username') && $request->postExists('password') && $request->postExists('password_confirmation') && $request->postExists('email'))
 			{	
-				$account = new \System\Library\Entities\Account(array('username' => $request->postData('username'), 
-															   		  'sha_pass_hash' => hash("sha512", $request->postData('password')),
-															   		  'email' => $request->postData('email')));
+				$account = new \System\Library\Database\Site\Account\Account(array('username' => $request->postData('username'), 
+																				   'password' => hash_password($request->postData('password')),
+																				   'email' => $request->postData('email')));
 					
-				if (!empty($this->db_handler()->getManagerOf('Account', 'site')->getUsername($request->postData('username'))))
+				if ($request->postData('password') != $request->postData('password_confirmation'))
+				{
+					$account->setError('password', 'Les mots de passe sont différents.');
+				}
+				
+				if (!empty($this->app()->db_handler()->getManager('Account', 'Site')->getUsername($request->postData('username'))))
 				{
 					$account->setError('username', 'Le nom d\'utilisateur est déjà utilisé');
 				}
 					
-				if (!empty($this->db_handler()->getManagerOf('Account', 'site')->getEmail($request->postData('email'))))
+				if (!empty($this->app()->db_handler()->getManager('Account', 'Site')->getEmail($request->postData('email'))))
 				{
 					$account->setError('email', 'L\'adresse email est déjà utilisée');
 				}									   
 													   
 				if (!$account->hasError())
 				{
-					$this->db_handler()->getManagerOf('Account', 'site')->add($account);
-					// $this->executeLogin($request);
+					$this->app()->db_handler()->getManager('Account', 'Site')->add($account);
+					$this->executeLogin($request);
 				}
 				else
 				{
-					$this->page()->addVar('errors', $account->error());
+					$this->app()->page()->addVar('errors', $account->error());
 				}
 			}
 		}
 		else
 		{
-			show_error(403, 'Already Connected', 'You are already connected.');
+			show_error(ERROR_LEVEL_ERROR, 'Déjà Connecté', 'Vous êtes déjà connecté; Veulliez vous déconnecter d\'abord pour vous connectez à un autre compte.');
 		}
+	}
+	
+	public function executeLogout(\System\Core\HTTPRequest $request)
+	{
+		$this->app()->session()->setAttribute('id', 0);
+		$this->app()->session()->setAttribute('username', NULL);
+		$this->app()->session()->setAttribute('email', NULL);
+		$this->app()->session()->setAttribute('rank', NULL);
+		$this->app()->session()->setAuthenticated(FALSE);
 	}
 }
 

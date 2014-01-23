@@ -46,12 +46,6 @@ abstract class AccountManager extends \System\Library\Manager
 	 * @param $id int L'identifiant du compte à mettre à jour
 	 */
 	abstract public function updateLogin($id);
-	
-	/**
-	 * Méthode retournant le nombre de joueurs en ligne
-	 * @return int Le nombre de joueurs en ligne
-	 */
-	abstract public function countOnlinePlayers();
 }
 
 ?>

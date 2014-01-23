@@ -1,39 +1,25 @@
-<div id="newscontainer">
-	<div class="news_row">
-		<div class="news_head"><p>Inscription</p></div>
-        
-		<div class="news_cont">
-            <form action="" method="POST" enctype="multipart/form-data">
-                <label for="username">Nom d'utilisateur :</label> 
-                <input name="username" type="text" autofocus required />
-                <?php if (isset($errors['username'])) echo '<img src="/site-v2/Applications/Frontend/Styles/defaults/images/others/alert.png" class="icon" title="'.$errors['username'].'" />'; ?>
-                <br /><br />
-                
-                <label for="password">Mot de passe :</label> 
-                <input name="password" type="password" required />
-                <?php if (isset($errors['password'])) echo '<img src="/site-v2/Applications/Frontend/Styles/defaults/images/others/alert.png" class="icon" title="'.$errors['password'].'" />'; ?>
-                <br /><br />
-                
-                <label for="password_repeat">Vérification du mot de passe :</label> 
-                <input name="password_repeat" type="password" required />
-                <?php if (isset($errors['password_repeat'])) echo '<img src="/site-v2/Applications/Frontend/Styles/defaults/images/others/alert.png" class="icon" title="'.$errors['password_repeat'].'" />'; ?>
-                <br /><br />
-                
-                <label for="email">Adresse e-mail :</label> 
-                <input name="email" type="email" required />
-                <?php if (isset($errors['email'])) echo '<img src="/site-v2/Applications/Frontend/Styles/defaults/images/others/alert.png" class="icon" title="'.$errors['email'].'" />'; ?>
-                <br /><br />
-                
-                <input name="register" type="submit" value="Inscription" />
-            </form>
-		</div>
-        
-		<div class="news_foot"></div>
-	</div>
-    
-	<div class="news_pagination">
-		<ul></ul>
-    </div>
-</div>
+<article>
+	<form method="post" action="" enctype="multipart/form-data">
+		<fieldset>
+			<legend>Formulaire d'inscription :</legend>
 
-<div class="pagestablecontainer"><div class="pagestablebox" id="newspagestable"></div></div>
+			<label for="username">Nom d'utilisateur</label>
+			<input type="text" name="username" id="username" required autofocus />
+			<br />
+						
+			<label for="password">Mot de passe :</label>
+			<input type="password" name="password" id="password" required />
+			<br />
+			
+			<label for="password_confirmation">Confirmez votre mot de passe :</label>
+			<input type="password" name="password_confirmation" id="password_confirmation" required />
+			<br />
+			
+			<label for="email">Adresse  E-Mail :</label>
+			<input type="email" name="email" id="email" required />
+			<br />
+		</fieldset>
+			   
+		<center><input type="submit" value="Inscription" /></center>
+	</form>
+</article>
