@@ -75,4 +75,11 @@ define('ERROR_LEVEL_WARN',	1);
 define('ERROR_LEVEL_ERROR',	1);
 define('ERROR_LEVEL_FATAL', 	2);
 
+/*
+|--------------------------------------------------------------------------
+| Others Definitions
+|--------------------------------------------------------------------------
+|
+*/
+define('CRYPT_SALT', '8Rds4a820Pql7Z');
 ?>

@@ -11,7 +11,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 |
 |
 */
-$config['site_name'] =  'Sky-Dream';
+$config['site_name'] =  'Web Site';
 
 /*
 |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ $config['url_suffix'] = '/Project_Web_Site';
 | that require a character set to be provided.
 |
 */
-$config['charset'] = 'ISO-8859-15';
+$config['charset'] = 'UTF-8';
 
 /*
 |--------------------------------------------------------------------------

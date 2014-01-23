@@ -444,3 +444,17 @@ if (!function_exists('isBannned'))
 		return FALSE;
 	}
 }
+
+/**
+* Return the password hashed
+*
+* @access	public
+* @return	string
+*/
+if (!function_exists('hash_password'))
+{
+	function hash_password($pass)
+	{
+		return hash("sha512", CRYPT_SALT.$pass);
+	}
+}

@@ -40,6 +40,16 @@ class HTTPRequest
 	{
 		return isset($_POST[$key]);
 	}
+	
+	public function filesData($key, $attr) 
+	{
+		return isset($_FILES[$key][$attr]) ? $_FILES[$key][$attr] : NULL;
+	}
+
+	public function filesExists($key) 
+	{
+		return isset($_FILES[$key]);
+	}
 
 	public function getURL() 
 	{

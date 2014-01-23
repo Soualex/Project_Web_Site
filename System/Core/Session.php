@@ -65,7 +65,7 @@ class Session
 	   
 	public function isAuthenticated() 
 	{
-		return isset($_SESSION['auth']) ? $_SESSION['auth'] : FALSE;
+		return isset($_SESSION['auth']) && !empty($_SESSION['auth']) ? $_SESSION['auth'] : FALSE;
 	}
 	   
 	public function setAttribute($attr, $value) 
@@ -77,7 +77,7 @@ class Session
 	{
 		if (!is_bool($authenticated))
 		{
-			show_error(500, 'Invalid Argument', 'The value specified in the method "Session::setAuthenticated()" must be a boolean');
+			show_error(ERROR_LEVEL_FATAL, 'Invalid Argument', 'The value specified in the method "Session::setAuthenticated()" must be a boolean');
 		}
 		 
 		$_SESSION['auth'] = $authenticated;
