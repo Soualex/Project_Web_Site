@@ -6,6 +6,18 @@ body
 	padding: 0;
 }
 
+a
+{
+	color: black;
+    padding-bottom: 2px;
+    text-decoration: none;
+}
+
+a:hover
+{
+    border-bottom: 1px solid black;
+}
+
 /* Navigation */
 
 nav
@@ -27,20 +39,19 @@ nav li
 {
     display: inline-block;
     margin-right: 15px;
+    font-size: 1.1em;
 }
 
 nav a
 {
-    font-size: 1.3em;
-    color: white;
+	color: white;
     padding-bottom: 3px;
     text-decoration: none;
 }
 
 nav a:hover
 {
-    color: #760001;
-    border-bottom: 3px solid #760001;
+    border-bottom: 2px solid white;
 }
 
 /* Section */

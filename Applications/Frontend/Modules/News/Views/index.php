@@ -7,7 +7,7 @@ foreach ($listNews as $news)
 
 	<article>
 		<h2><?php echo $news->offsetGet('title'); ?></h2>
-		<em>Le <?php echo $news->offsetGet('add_date'); ?> par <?php echo $news->offsetGet('author')->offsetGet('username'); ?>.</em>
+		<em>Le <?php echo $news->offsetGet('add_date')->format('d/m/Y à H:i'); ?> par <?php // echo $news->offsetGet('author')->offsetGet('username'); ?>.</em>
 		<p><?php echo nl2br($news->offsetGet('content')); ?></p>
 	</article>
 
