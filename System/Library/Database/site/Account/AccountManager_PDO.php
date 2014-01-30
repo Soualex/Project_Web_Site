@@ -35,20 +35,14 @@ class AccountManager_PDO extends AccountManager
 	public function getId($id) 
 	{
 		$query = $this->dao->prepare('SELECT * FROM account WHERE id = :id');
-		$query->bindValue(':id', (int) $id, \PDO::PARAM_INT);
+		$query->bindValue(':id', $id, \PDO::PARAM_INT);
 		$query->execute();
 
 		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Account\Account');
-		
-		if ($account = $query->fetch())
-		{
-			$account->setJoindate(new \DateTime($account['joindate']));
-			$account->setLast_login(new \DateTime($account['last_login']));
-			
-			return $account;
-		}
+		$account = $query->fetch();
+		$query->closeCursor();
 
-		return NULL;
+		return $account;
 	}
 	
 	public function getUsername($username) 
@@ -58,8 +52,10 @@ class AccountManager_PDO extends AccountManager
 		$query->execute();
 
 		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Account\Account');
+		$account = $query->fetch();
+		$query->closeCursor();
 
-		return $query->fetch();
+		return $account;
 	}
 	
 	public function getEmail($email) 
@@ -69,8 +65,10 @@ class AccountManager_PDO extends AccountManager
 		$query->execute();
 
 		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Account\Account');
+		$account = $query->fetch();
+		$query->closeCursor();
 
-		return $query->fetch();
+		return $account;
 	}
 	
 	public function add(\System\Library\Database\Site\Account\Account $account) 

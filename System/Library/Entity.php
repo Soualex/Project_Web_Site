@@ -12,7 +12,9 @@ abstract class Entity
 	public function __construct($data = array())
 	{
 		if (!empty($data))
-		  $this->hydrate($data);
+		{
+			$this->hydrate($data);
+		}
 	}
 	   
 	public function isNew()
@@ -55,7 +57,9 @@ abstract class Entity
 			$method = 'set'.ucfirst($key);
 			   
 			if (is_callable(array($this, $method)))
+			{
 				$this->$method($value);
+			}
 		}
 	}
 	   

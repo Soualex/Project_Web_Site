@@ -41,9 +41,9 @@ class HTTPRequest
 		return isset($_POST[$key]);
 	}
 	
-	public function filesData($key, $attr) 
+	public function filesData($attr, $key) 
 	{
-		return isset($_FILES[$key][$attr]) ? $_FILES[$key][$attr] : NULL;
+		return isset($_FILES[$attr][$key]) ? $_FILES[$attr][$key] : NULL;
 	}
 
 	public function filesExists($key) 

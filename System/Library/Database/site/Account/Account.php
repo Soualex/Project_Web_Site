@@ -21,38 +21,42 @@ class Account extends \System\Library\Entity
 	public function setUsername($username)
 	{
 		if (!empty($username) && is_string($username))
+		{
 			$this->username = $username;
-		else
-			$this->errors['username'] = "Le nom d'utilisateur doit être une chaîne de caractères.";
+		}
 	}
 	
 	public function setPassword($password)
 	{
 		if (!empty($password) && is_string($password))
+		{
 			$this->password = $password;
-		else
-			$this->errors['password'] = "Mot de passe incorrecte.";
+		}
 	}
 	
 	public function setRank($rank)
 	{
 		if (is_int($rank) && !empty($rank) && $rank >= 0)
+		{
 			$this->rank = $rank;
-		else
-			$this->errors['rank'] = "Le rang de l'utilisateur doit être un nombre entier positif.";
+		}
 	}
 	
 	public function setEmail($email)
 	{
 		if (!empty($email) && preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email))
+		{
 			$this->email = $email;
-		else
-			$this->errors['email'] = "Votre adresse email doit être de la forme \"exemple@exemple.net\".";
+		}
 	}
 	
-	public function setJoindate(\DateTime $joindate)
+	public function setJoindate($joindate)
 	{
-		$this->joindate = $joindate;
+		if (!empty($joindate) && is_int($joindate))
+		{
+			$date = new \DateTime();
+			$this->upload_date = $date->setTimestamp($joindate);
+		}
 	}
 	
 	public function setJoinip($ip)
@@ -63,9 +67,13 @@ class Account extends \System\Library\Entity
 		}
 	}
 	
-	public function setLast_login(\DateTime $last_login)
+	public function setLast_login($last_login)
 	{
-		$this->last_login = $last_login;
+		if (!empty($last_login) && is_int($last_login))
+		{
+			$date = new \DateTime();
+			$this->upload_date = $date->setTimestamp($last_login);
+		}
 	}
 	
 	public function setLast_ip($last_ip)
@@ -76,9 +84,9 @@ class Account extends \System\Library\Entity
 	public function setLocked($locked)
 	{
 		if (is_int($locked) && !empty($locked))
+		{
 			$this->locked = $locked;
-		else
-			$this->errors['locked'] = "La valeur de \"locked\" doit être 0 ou 1.";
+		}
 	}
 	
 	

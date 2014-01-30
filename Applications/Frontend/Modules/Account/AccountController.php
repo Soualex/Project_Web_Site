@@ -25,6 +25,7 @@ class AccountController extends \System\Library\BackController
 						$this->app()->session()->setAttribute('email', $account->offsetGet('email'));
 						$this->app()->session()->setAttribute('rank', $account->offsetGet('rank'));
 						$this->app()->session()->setAuthenticated(TRUE);
+						$this->app()->db_handler()->getManager('Account', 'Site')->updateLogin($account->offsetGet('id'));
 					}
 					else
 					{
@@ -39,7 +40,7 @@ class AccountController extends \System\Library\BackController
 		}
 		else
 		{
-			show_error(ERROR_LEVEL_ERROR, 'Déjà Connecté', 'Vous êtes déjà connecté; Veulliez vous déconnecter d\'abord pour vous connectez à un autre compte.');
+			show_error(ERROR_LEVEL_ERROR, 'Accès Refusé', 'Vous êtes déjà connecté; Veulliez vous déconnecter d\'abord pour vous connectez à un autre compte.');
 		}
 	}
 	
@@ -83,17 +84,24 @@ class AccountController extends \System\Library\BackController
 		}
 		else
 		{
-			show_error(ERROR_LEVEL_ERROR, 'Déjà Connecté', 'Vous êtes déjà connecté; Veulliez vous déconnecter d\'abord pour vous connectez à un autre compte.');
+			show_error(ERROR_LEVEL_ERROR, 'Accès Refusé', 'Vous êtes déjà connecté; Veulliez vous déconnecter d\'abord pour vous connectez à un autre compte.');
 		}
 	}
 	
 	public function executeLogout(\System\Core\HTTPRequest $request)
 	{
-		$this->app()->session()->setAttribute('id', 0);
-		$this->app()->session()->setAttribute('username', NULL);
-		$this->app()->session()->setAttribute('email', NULL);
-		$this->app()->session()->setAttribute('rank', NULL);
-		$this->app()->session()->setAuthenticated(FALSE);
+		if ($this->app()->session()->isAuthenticated())
+		{
+			$this->app()->session()->setAttribute('id', 0);
+			$this->app()->session()->setAttribute('username', NULL);
+			$this->app()->session()->setAttribute('email', NULL);
+			$this->app()->session()->setAttribute('rank', NULL);
+			$this->app()->session()->setAuthenticated(FALSE);
+		}
+		else
+		{
+			show_error(ERROR_LEVEL_ERROR, 'Accès Refusé', 'Vous êtes déjà déconnecté.');
+		}
 	}
 }
 

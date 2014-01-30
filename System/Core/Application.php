@@ -38,12 +38,18 @@ class Application
 	
 	public function run()
 	{
-		if ($this->session->getAttribute('rank') < $this->config->getItem(CFG_GENERAL, 'level_required_to_reach_site') || 
-			$this->session->getAttribute('rank') < $this->route->security() && 
-			$this->route->uri() != $this->config->getItem(CFG_GENERAL, 'authentification_URI') && 
-			$this->httpRequest->getUserIP() != '127.0.0.1')
+		// Check the user's access
+		if ($this->route->uri() != $this->config->getItem(CFG_GENERAL, 'error_uri'))
 		{
-			show_error(ERROR_LEVEL_ERROR, 'Acess Denied', 'The site is accessible to the users who have the required access level.');
+			if ($this->session->getAttribute('rank') < $this->config->getItem(CFG_GENERAL, 'level_required_to_reach_site') && $this->route->uri() != $this->config->getItem(CFG_GENERAL, 'authentification_URI'))
+			{
+				show_error(ERROR_LEVEL_ERROR, 'Accès Refusé', 'Vous n\'avez pas le niveau requis pour naviguer sur ce site. Veuillez vous connecter pour obtenir un éventuel accès.');
+			}
+			
+			if ($this->session->getAttribute('rank') < $this->route->security())
+			{
+				show_error(ERROR_LEVEL_ERROR, 'Accès Refusé', 'Vous n\'avez pas le niveau requis pour accéder à cette page.');
+			}
 		}
 		
 		// Merge Route::vars into $_GET
