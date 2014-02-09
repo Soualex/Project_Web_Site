@@ -88,7 +88,7 @@ $config['charset'] = 'UTF-8';
 |
 */
 $config['authentification_URI'] = 'account/login';
-$config['level_required_to_reach_site'] = 1;
+$config['level_required_to_reach_site'] = 0;
 $config['accepted_registrations'] = TRUE;
 $config['error_uri'] = 'error';
 

@@ -12,6 +12,12 @@ abstract class Manager
 	{
 		$this->dao = $dao;
 	}
+	
+	public function dao()
+	{
+		global $DB;
+		
+	}
 }
 
 ?>

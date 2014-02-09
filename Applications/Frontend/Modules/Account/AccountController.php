@@ -10,7 +10,7 @@ class AccountController extends \System\Library\BackController
 	{
 		$this->app()->page()->addVar('page_name', 'Connexion');
 		
-		if (!$this->app()->session()->isAuthenticated())
+		if (!$this->app()->session()->isAuthenticated() || $this->app()->session()->getAttribute('login_attempts') > 3)
 		{		
 			if ($request->postExists('username') && $request->postExists('password'))
 			{
@@ -30,11 +30,13 @@ class AccountController extends \System\Library\BackController
 					else
 					{
 						$this->app()->page()->addVar('login_error_password', 'Mot de passe incorrecte.');
+						$this->app()->session()->setAttribute('login_attempts', $this->app()->session()->getAttribute('login_attempts')+1);
 					}
 				}
 				else
 				{
 					$this->app()->page()->addVar('login_error_username', 'Nom d\'utilisateur incorrecte.');
+					$this->app()->session()->setAttribute('login_attempts', $this->app()->session()->getAttribute('login_attempts')+1);
 				}
 			}
 		}

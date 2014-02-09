@@ -8,13 +8,29 @@ class NewsController extends \System\Library\BackController
 {
 	public function executeIndex(\System\Core\HTTPRequest $request)
 	{
-		$nombreNews = $this->app()->config()->getItem(CFG_APP, 'nombre_news');
-
 		$this->app()->page()->addVar('page_name', 'Actualités');
+		
+		$listNews = $this->app()->db_handler()->getManager('News', 'Site')->getList();
 
-		$manager = $this->app()->db_handler()->getManager('News', 'Site');
+		$nombreDePages = ceil(count($listNews) / $this->app()->config()->getItem(CFG_APP, 'articles_per_page'));
 
-		$listNews = $manager->getList();
+		if($request->getExists('page'))
+		{
+			$pageActuelle = intval($request->getData('page'));
+			 
+			if($pageActuelle > $nombreDePages)
+			{
+				$pageActuelle = $nombreDePages;
+			}
+		}
+		else
+		{
+			$pageActuelle = 1;
+		}
+
+		$premiereEntree = ($pageActuelle - 1) * $this->app()->config()->getItem(CFG_APP, 'articles_per_page');
+		
+		$listNews = $this->app()->db_handler()->getManager('News', 'Site')->getList($premiereEntree, $this->app()->config()->getItem(CFG_APP, 'articles_per_page'));
 
 		$this->app()->page()->addVar('listNews', $listNews);
 	}
