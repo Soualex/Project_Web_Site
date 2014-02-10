@@ -7,11 +7,17 @@
 		<fieldset>
 			<legend>Formulaire d'upload :</legend>
 
-			<input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
-			<input type="file" name="upl_file" id="upl_file" />
+			<label for="title">Titre :</label>
+			<input type="text" name="title" id="title" required />
+			<br />
 			
-			<select name="upl_security">
-				<option value="">Sécurité du fichier</option>
+			<label for="file">Fichier :</label>
+			<input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+			<input type="file" name="upl_file" id="upl_file" required />
+			<br />
+				
+			<label for="upl_security">Sécruité du fichier :</label>
+			<select name="upl_security" required>
 				<?php 
 				if ($session->getAttribute('rank') >= 1) 
 				{ ?>
@@ -23,6 +29,10 @@
 				<?php if ($session->getAttribute('rank') >= 2) { echo '<option value="2">Modérateurs</option>'; } ?>
 				<?php if ($session->getAttribute('rank') >= 3) { echo '<option value="3">Administrateurs</option>'; } ?>
 			</select>
+			<br />
+				
+			<label for="description">Description :</label>
+			<textarea name="description" id="description" rows="5" cols="50" required></textarea>
 		</fieldset>
 		 
 		<center><input type="submit" name="submit" value="Envoyer" /></center>

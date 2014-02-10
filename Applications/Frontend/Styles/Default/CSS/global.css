@@ -18,6 +18,29 @@ a:hover
     border-bottom: 1px solid black;
 }
 
+label
+{
+	display: block;
+	width: 150px;
+	float: left;
+}
+
+table
+{
+    border-collapse: collapse;
+	border: 2px solid black;
+}
+
+th, td
+{
+	border: 1px solid black;
+}
+
+caption
+{
+	font-weight: bold;
+}
+
 /* Navigation */
 
 nav

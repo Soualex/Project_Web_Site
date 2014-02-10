@@ -24,39 +24,42 @@ class News extends \System\Library\Entity
 	{
 		global $DB;
 		
-		if (!empty($author_id) && is_int($author_id) && $author_id > 0)
+		if (!empty($author_id) && is_numeric($author_id))
 		{
-			$accountManager = new \System\Library\Models\AccountManager_PDO($DB->getInstanceOf('site'));
-			$this->author = $accountManager->getId($author_id);
+			$this->author = $DB->getManager('Account', 'Site')->getId($author_id);
 		}
-		else
-			$this->errors['author_id'] = "L'ID de l'utilisateur doit être un nombre entier positif";
 	}
 	   
 	public function setTitle($title)
 	{
-		if (!is_string($title) || empty($title))
-		  	$this->errors[] = "Le titre doit être une chaîne de caratères.";
-		else
-		  	$this->title = $title;
+		if (!empty($title) && is_string($title))
+		{
+			$this->title = $title;
+		}
 	}
 	   
 	public function setContent($content)
 	{
-		if (!is_string($content) || empty($content))
-		 	$this->erreurs[] = "Le contenu de la news doit être une chaîne de caratères.";
-		else
+		if (!empty($content) && is_string($content))
+		{
 			$this->content = $content;
+		}
 	}
 	   
-	public function setAdd_date(\DateTime $add_date)
+	public function setAdd_date($add_date)
 	{
-		$this->add_date = $add_date;
+		if (!empty($add_date))
+		{
+			$this->add_date = new \DateTime($add_date);
+		}
 	}
 	   
-	public function setUpdate_date(\DateTime $update_add)
+	public function setUpdate_date($update_add)
 	{
-		$this->update_add = $update_add;
+		if (!empty($update_add))
+		{
+			$this->update_add = new \DateTime($update_add);
+		}
 	}
 	   
 	// GETTERS //

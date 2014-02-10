@@ -16,6 +16,11 @@ abstract class Entity
 			$this->hydrate($data);
 		}
 	}
+	
+	function __set($name, $value)
+	{
+		$this->offsetSet($name, $value);
+	}
 	   
 	public function isNew()
 	{
@@ -54,19 +59,16 @@ abstract class Entity
 	{
 		foreach ($data as $key => $value)
 		{
-			$method = 'set'.ucfirst($key);
-			   
-			if (is_callable(array($this, $method)))
-			{
-				$this->$method($value);
-			}
+			$this->offsetSet($key, $value);
 		}
 	}
 	   
 	public function offsetGet($var)
 	{
 		if (isset($this->$var) && is_callable(array($this, $var)))
+		{
 		 	return $this->$var();
+		}
 	}
 	   
 	public function offsetSet($var, $value)
@@ -74,7 +76,9 @@ abstract class Entity
 		$method = 'set'.ucfirst($var);
 		 
 		if (isset($this->$var) && is_callable(array($this, $method)))
+		{
 			$this->$method($value);
+		}
 	}
 	   
 	public function offsetExists($var)

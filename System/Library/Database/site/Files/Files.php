@@ -10,6 +10,8 @@ class Files extends \System\Library\Entity
 	protected $filename;
 	protected $file_size;
 	protected $upload_date;
+	protected $title;
+	protected $description;
 	
 	
 	// SETTERS
@@ -42,10 +44,25 @@ class Files extends \System\Library\Entity
 	
 	public function setUpload_date($upload_date)
 	{
-		if (!empty($upload_date) && is_int($upload_date))
+		if (!empty($upload_date))
 		{
-			$date = new \DateTime();
-			$this->upload_date = $date->setTimestamp($upload_date);
+			$this->upload_date = new \DateTime($upload_date);
+		}
+	}
+	
+	public function setTitle($title)
+	{
+		if (!empty($title) && is_string($title))
+		{
+			$this->title = $title;
+		}
+	}
+	
+	public function setDescription($description)
+	{
+		if (!empty($description) && is_string($description))
+		{
+			$this->description = $description;
 		}
 	}
 	
@@ -69,6 +86,16 @@ class Files extends \System\Library\Entity
 	public function upload_date()
 	{
 		return $this->upload_date;
+	}
+	
+	public function title()
+	{
+		return $this->title;
+	}
+	
+	public function description()
+	{
+		return $this->description;
 	}
 }
 

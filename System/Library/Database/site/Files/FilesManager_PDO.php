@@ -12,18 +12,25 @@ class FilesManager_PDO extends FilesManager
 	{
 		$sql = "SELECT * FROM files ORDER BY upload_date DESC";
 
-		if ($debut != -1 || $limite != -1) {
+		if ($debut != -1 || $limite != -1) 
+		{
 			$sql .= ' LIMIT '.(int) $limite.' OFFSET '.(int) $debut;
 		}
 
 		$query = $this->dao->query($sql);
 		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Files\Files');
 
-		$listeNews = $query->fetchAll();
+		$listFiles = $query->fetchAll();
  
 		$query->closeCursor();
+		
+		foreach ($listFiles as $file)
+		{
+			$file->offsetSet('uploader', $file->offsetGet('uploader'));
+			$file->offsetSet('upload_date', $file->offsetGet('upload_date'));
+		}
 
-		return $listeNews;
+		return $listFiles;
 	}
 	
 	public function getId($id) 
@@ -41,12 +48,14 @@ class FilesManager_PDO extends FilesManager
 
 	public function add(\System\Library\Database\Site\Files\Files $file) 
 	{		
-		$query = $this->dao->prepare('INSERT INTO files(uploader, filename, file_size, upload_date) 
-												  VALUES(:uploader, :filename, :file_size, NOW())');
+		$query = $this->dao->prepare('INSERT INTO files(uploader, filename, file_size, upload_date, title, description) 
+												  VALUES(:uploader, :filename, :file_size, NOW(), :title, :description)');
 												  
 		$query->bindValue(':uploader', $file->offsetGet('uploader')->offsetGet('id'), \PDO::PARAM_INT);
 		$query->bindValue(':filename', $file->offsetGet('filename'), \PDO::PARAM_STR);
 		$query->bindValue(':file_size', $file->offsetGet('file_size'), \PDO::PARAM_INT);
+		$query->bindValue(':title', $file->offsetGet('title'), \PDO::PARAM_STR);
+		$query->bindValue(':description', $file->offsetGet('description'), \PDO::PARAM_STR);
 		
 		$query->execute();
 		

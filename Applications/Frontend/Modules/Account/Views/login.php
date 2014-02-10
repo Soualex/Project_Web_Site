@@ -3,7 +3,7 @@
 		<fieldset>
 			<legend>Formulaire d'authentification :</legend>
 
-			<label for="username">Nom d'utilisateur</label>
+			<label for="username">Nom d'utilisateur :</label>
 			<input type="text" name="username" id="username" required autofocus />
 			<br />
 						

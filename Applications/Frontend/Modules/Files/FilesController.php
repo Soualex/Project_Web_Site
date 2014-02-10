@@ -6,11 +6,18 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class FilesController extends \System\Library\BackController
 {
+	public function executeIndex(\System\Core\HTTPRequest $request)
+	{
+		$this->app()->page()->addVar('page_name', 'Fichiers');
+		
+		$this->app()->page()->addVar('listFiles', $this->app()->db_handler()->getManager('Files', 'Site')->getList());
+	}
+	
 	public function executeUpload(\System\Core\HTTPRequest $request)
 	{
 			$this->app()->page()->addVar('page_name', 'Upload');
 			
-			if ($request->filesExists('upl_file') && $request->postExists('upl_security'))
+			if ($request->filesExists('upl_file') && $request->postExists('upl_security') && $request->postExists('title') && $request->postExists('description'))
 			{
 				if ($request->filesData('upl_file', 'error') > 0)
 				{
@@ -37,7 +44,12 @@ class FilesController extends \System\Library\BackController
 				{
 					$file_extension = strtolower(substr(strrchr($request->filesData('upl_file', 'name'), '.'), 1));
 					$filename = $request->filesData('upl_file', 'name').'_'.md5(uniqid(rand(), TRUE)).'.'.$file_extension;
-					$file = new \System\Library\Database\Site\Files\Files(array('uploader' => $this->app()->session()->getAttribute('id'), 'filename' => $filename, 'file_size' => $request->filesData('upl_file', 'size'), 'upload_date' => time()));
+					$file = new \System\Library\Database\Site\Files\Files(array('uploader' => $this->app()->session()->getAttribute('id'), 
+																				'filename' => $filename, 
+																				'file_size' => $request->filesData('upl_file', 'size'), 
+																				'upload_date' => time(),
+																				'title' => $request->postData('title'),
+																				'description' => $request->postData('description')));
 					
 					if (move_uploaded_file($request->filesData('upl_file', 'tmp_name'), UPLPATH.$filename))
 					{
@@ -55,6 +67,8 @@ class FilesController extends \System\Library\BackController
 	public function executeDownload(\System\Core\HTTPRequest $request)
 	{
 		$this->app()->page()->addVar('page_name', 'Téléchargement');
+		
+		$file = $this->app()->db_handler()->getManager('Files', 'Site')->getId($request->getData('id'));
 	}
 }
 
