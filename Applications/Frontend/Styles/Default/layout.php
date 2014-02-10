@@ -6,6 +6,7 @@
 			<meta charset="<?php echo $config->getItem(CFG_GENERAL, 'charset'); ?>" http-equiv="Content-Type" content="text/html" />
 			
 			<link rel="stylesheet" href="/Project_Web_Site/Applications/Frontend/Styles/Default/CSS/global.css" />
+			<link rel="stylesheet" href="/Project_Web_Site/Applications/Frontend/Styles/Default/CSS/chatbox.css" />
         </head>
          
         <body>

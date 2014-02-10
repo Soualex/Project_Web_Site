@@ -27,7 +27,7 @@ abstract class BackController extends \System\Library\ApplicationComponent
 		// Check that the function exist
 		if (!is_callable(array($this, $method)))
 		{
-			show_error(500, 'Action Not Defined', 'The action "'.$this->_action.'" is not defined on this module.');
+			show_error(ERROR_LEVEL_ERROR, 'Action Not Defined', 'The action "'.$this->_action.'" is not defined on this module.');
 		}
 		
 		// Execute the function
@@ -39,7 +39,7 @@ abstract class BackController extends \System\Library\ApplicationComponent
 		// Check that the argument is valid
 		if (!is_string($module) || empty($module))
 		{
-			show_error(500, 'Invalid Argument', 'The module must be a valid character string');
+			show_error(ERROR_LEVEL_ERROR, 'Invalid Argument', 'The module must be a valid character string');
 		}
 		 
 		$this->_module = $module;
@@ -50,7 +50,7 @@ abstract class BackController extends \System\Library\ApplicationComponent
 		// Check that the argument is valid
 		if (!is_string($action) || empty($action))
 		{
-			show_error(500, 'Invalid Argument', 'The action must be a valid character string');
+			show_error(ERROR_LEVEL_ERROR, 'Invalid Argument', 'The action must be a valid character string');
 		}
 		 
 		$this->_action = $action;
@@ -61,7 +61,7 @@ abstract class BackController extends \System\Library\ApplicationComponent
 		// Check that the argument is valid
 		if (!is_string($view) || empty($view))
 		{
-			show_error(500, 'Invalid Argument', 'The view must be a valid character string');
+			show_error(ERROR_LEVEL_ERROR, 'Invalid Argument', 'The view must be a valid character string');
 		}
 		 
 		$this->_view = $view;

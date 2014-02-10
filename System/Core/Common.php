@@ -407,15 +407,17 @@ if (!function_exists('string_format'))
 {
 	function string_format($string)
 	{
-		$string = nl2br(str_replace(array("\\n","\\r"),array("\n",""),$string));
+		$string = nl2br(html_escape(str_replace(array("\\n","\\r"),array("\n",""),$string)));
 		$string = str_replace("\\","",$string);
 		
 		// BBCode
-		$string = preg_replace('`\[g\](.+)\[/g\]`isU', '<strong>$1</strong>', $string); 
-		$string = preg_replace('`\[i\](.+)\[/i\]`isU', '<em>$1</em>', $string);
-		$string = preg_replace('`\[s\](.+)\[/s\]`isU', '<u>$1</u>', $string);
+		$string = preg_replace('`\[b\](.+)\[/b\]`isU', '<strong>$1</strong>', $string); // Bold
+		$string = preg_replace('`\[i\](.+)\[/i\]`isU', '<em>$1</em>', $string); // Italic
+		$string = preg_replace('`\[u\](.+)\[/u\]`isU', '<u>$1</u>', $string); // Underline
 		$string = preg_replace('#http://[a-z0-9._/-]+#i', '<a href="$0">$0</a>', $string);
-		$string = preg_replace('`\[color=(red|blue|green|yellow|purple|olive)\](.+)\[/color\]`isU','<font color="$1">$2</font>', $string); // Couleur
+		$string = preg_replace('`\[color=(red|blue|green|yellow|purple|olive)\](.+)\[/color\]`isU','<font color="$1">$2</font>', $string); // Color
+		
+		return $string;
 	}
 }
 
