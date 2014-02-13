@@ -1,22 +1,24 @@
 <?php
 
-namespace System\Library\Database\Site\News;
+namespace System\Library\Entities\News;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  
-use \System\Library\Database\Site\News\News;
+use \System\Library\Entities\News\News;
  
 class NewsManager_PDO extends NewsManager
 {
 	public function getList($debut = -1, $limite = -1) 
 	{
-		$sql = "SELECT id, title, author, content, add_date, update_date FROM news ORDER BY id DESC";
+		$sql = "SELECT N.id, N.title, A.username AS author, N.content, N.add_date, N.update_date FROM news N LEFT OUTER JOIN account A ON N.author_id = A.id ORDER BY id DESC";
 
 		if ($debut != -1 || $limite != -1)
+		{
 			$sql .= ' LIMIT '.(int) $limite.' OFFSET '.(int) $debut;
+		}
 
-		$query = $this->dao->query($sql);
-		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\News\News');
+		$query = $this->dao('Site')->query($sql);
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Entities\News\News');
 
 		$listNews = $query->fetchAll();
 		
@@ -33,11 +35,11 @@ class NewsManager_PDO extends NewsManager
 
 	public function get($id) 
 	{
-		$query = $this->dao->prepare('SELECT id, title, author, content, add_date, update_date FROM news WHERE id = :id');
+		$query = $this->dao('Site')->prepare('SELECT N.id, N.title, A.username AS author, N.content, N.add_date, N.update_date FROM news N LEFT OUTER JOIN account A ON N.author_id = A.id AND N.author_id IS NULL WHERE id = :id');
 		$query->bindValue(':id', (int) $id, \PDO::PARAM_INT);
 		$query->execute();
 
-		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\News\News');
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Entities\News\News');
 
 		if ($news = $query->fetch()) 
 		{

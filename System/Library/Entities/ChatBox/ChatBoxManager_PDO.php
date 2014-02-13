@@ -17,7 +17,7 @@ class ChatBoxManager_PDO extends ChatBoxManager
 			$sql .= ' LIMIT '.(int) $limite.' OFFSET '.(int) $debut;
 		}
 
-		$query = $this->dao->query($sql);
+		$query = $this->dao('site')->query($sql);
 		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\ChatBox\ChatBox');
 
 		$listeNews = $query->fetchAll();

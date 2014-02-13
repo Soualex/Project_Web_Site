@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Library\Database\Site\Routes;
+namespace System\Library\Entities\Route;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  
@@ -10,7 +10,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  * @subpackage	Library
  * @category	Route
  */
-class Routes extends \System\Library\Entity
+class Route extends \System\Library\Entity
 {
 	protected $uri;
 	protected $application;

@@ -68,14 +68,21 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  *  Instantiate the DataBase class
  * ------------------------------------------------------
  */
-	$DB = new System\Library\Database\Database_Handler($CFG);
+	$DB = new System\Library\DatabaseHandler($CFG);
+	
+/*
+ * ------------------------------------------------------
+ *  Instantiate the DataBase class
+ * ------------------------------------------------------
+ */
+	$_ENTITIES = new System\Library\EntitiesHandler($DB);
 
 /*
  * ------------------------------------------------------
  *  Instantiate the Router class
  * ------------------------------------------------------
  */
-	$RTR = new System\Core\Router($CFG, $DB);
+	$RTR = new System\Core\Router($_ENTITIES);
 	
 /*
  * ------------------------------------------------------
@@ -105,7 +112,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 	
 	if (is_dir(APPPATH.$route->application()))
 	{
-		$app = new System\Core\Application($route, $HTTPRQST, $HTTPRESP, $SESSION, $CFG, $DB);
+		$app = new System\Core\Application($route, $HTTPRQST, $HTTPRESP, $SESSION, $CFG, $_ENTITIES);
 		$app->run();
 	}
 	else

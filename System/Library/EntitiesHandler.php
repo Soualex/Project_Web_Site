@@ -8,9 +8,15 @@ class EntitiesHandler
 {
 	protected $_entity;
 	protected $_entity_manager;
+	protected $_DB_HANDLER;
 
 
-	public function load_entity($entity, $class)
+	public function __construct(\System\Library\DatabaseHandler $_DB_HANDLER)
+	{
+		$this->_DB_HANDLER = $_DB_HANDLER;
+	}
+	
+	public function load_entity($entity, $class, array $args = NULL)
 	{
 		if (!is_string($entity) || empty($entity) || !is_string($class) || empty($class))
 		{
@@ -18,13 +24,13 @@ class EntitiesHandler
 		}
 		else
 		{
-			if (!isset($this->_entity[$entity.'_'.$class]))
+			if (!isset($this->_entity[$class]))
 			{
-				require_once(HOMEPATH.'/System/Library/Entities/'.$entity.'.php');		
-				$this->_entity[$entity.'_'.$class] = new $class();
+				$class_file = '\System\Library\Entities\\'.$entity.'\\'.$class;		
+				$this->_entity[$class] = new $class_file($args);
 			}
-
-			return $this->_entity[$entity.'_'.$class];
+			
+			return $this->_entity[$class];
 		}
 	}
 	
@@ -39,7 +45,7 @@ class EntitiesHandler
 			if (!isset($this->_entity_manager[$entity]))
 			{			
 				$class = '\System\Library\Entities\\'.$entity.'\\'.$entity.'Manager_PDO';			
-				$this->_entity_manager[$entity] = new $class();
+				$this->_entity_manager[$entity] = new $class($this->_DB_HANDLER);
 			}
 
 			return $this->_entity_manager[$entity];

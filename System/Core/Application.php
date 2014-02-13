@@ -11,10 +11,10 @@ class Application
 	private $httpResponse;
 	private $session;
 	private $config;
-	private $db_handler;
 	private $page;
+	private $EntitiesHandler;
 
-	public function __construct(\System\Library\Database\Site\Routes\Routes $route, \System\Core\HTTPRequest $httpRequest, \System\Core\HTTPResponse $httpResponse, \System\Core\Session $session, \System\Core\Config $config, \System\Library\Database\Database_Handler $db_handler) 
+	public function __construct(\System\Library\Entities\Route\Route $route, \System\Core\HTTPRequest $httpRequest, \System\Core\HTTPResponse $httpResponse, \System\Core\Session $session, \System\Core\Config $config, \System\Library\EntitiesHandler $EntitiesHandler) 
 	{
 		// Set the globals variables
 		$this->route = $route;
@@ -22,8 +22,8 @@ class Application
 		$this->httpResponse = $httpResponse;
 		$this->session = $session;
 		$this->config = $config;
-		$this->db_handler = $db_handler;
 		$this->page = new \System\Library\Page($this);
+		$this->EntitiesHandler = $EntitiesHandler;
 		
 		// Load the application configurations
 		$config->load_application_config($this);
@@ -105,9 +105,9 @@ class Application
 		return $this->config;
 	}
 	
-	public function db_handler() 
+	public function entities_handler() 
 	{
-		return $this->db_handler;
+		return $this->EntitiesHandler;
 	}
 	
 	public function page() 

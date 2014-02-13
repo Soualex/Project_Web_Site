@@ -10,7 +10,7 @@ class NewsController extends \System\Library\BackController
 	{
 		$this->app()->page()->addVar('page_name', 'Actualités');
 		
-		$listNews = $this->app()->db_handler()->getManager('News', 'Site')->getList();
+		$listNews = $this->app()->entities_handler()->load_entity_manager('News')->getList();
 
 		$nombreDePages = ceil(count($listNews) / $this->app()->config()->getItem(CFG_APP, 'articles_per_page'));
 
@@ -30,7 +30,7 @@ class NewsController extends \System\Library\BackController
 
 		$premiereEntree = ($pageActuelle - 1) * $this->app()->config()->getItem(CFG_APP, 'articles_per_page');
 		
-		$listNews = $this->app()->db_handler()->getManager('News', 'Site')->getList($premiereEntree, $this->app()->config()->getItem(CFG_APP, 'articles_per_page'));
+		$listNews = $this->app()->entities_handler()->load_entity_manager('News')->getList($premiereEntree, $this->app()->config()->getItem(CFG_APP, 'articles_per_page'));
 
 		$this->app()->page()->addVar('listNews', $listNews);
 	}

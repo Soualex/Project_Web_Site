@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Library\Database\Site\Account;
+namespace System\Library\Entities\Account;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  
@@ -39,7 +39,7 @@ abstract class AccountManager extends \System\Library\Manager
 	 * Méthode ajoutant un utilisateur à la base de données
 	 * @param $account \Library\Entities\Account
 	 */
-	abstract public function add(\System\Library\Database\Site\Account\Account $account);
+	abstract public function add(\System\Library\Entities\Account\Account $account);
 	
 	/**
 	 * Méthode mettant à jour les informations de la dernière connxeion

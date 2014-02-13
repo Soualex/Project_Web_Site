@@ -6,17 +6,21 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  
 abstract class Manager
 {
-	protected $dao;
+	protected $_DB_HANDLER;
 	   
-	public function __construct($dao)
+	public function __construct(\System\Library\DatabaseHandler $_DB_HANDLER)
 	{
-		$this->dao = $dao;
+		$this->_DB_HANDLER = $_DB_HANDLER;
 	}
 	
-	public function dao()
+	public function dao($dao)
 	{
-		global $DB;
+		if (!empty($dao) && is_string($dao))
+		{
+			return $this->_DB_HANDLER->getInstanceOf($dao);
+		}
 		
+		return NULL;
 	}
 }
 

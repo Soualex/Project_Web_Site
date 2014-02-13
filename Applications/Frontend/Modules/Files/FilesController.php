@@ -10,7 +10,7 @@ class FilesController extends \System\Library\BackController
 	{
 		$this->app()->page()->addVar('page_name', 'Fichiers');
 		
-		$this->app()->page()->addVar('listFiles', $this->app()->db_handler()->getManager('Files', 'Site')->getList());
+		$this->app()->page()->addVar('listFiles', $this->app()->entities_handler()->load_entity_manager('Files')->getList());
 	}
 	
 	public function executeUpload(\System\Core\HTTPRequest $request)
@@ -44,16 +44,16 @@ class FilesController extends \System\Library\BackController
 				{
 					$file_extension = strtolower(substr(strrchr($request->filesData('upl_file', 'name'), '.'), 1));
 					$filename = $request->filesData('upl_file', 'name').'_'.md5(uniqid(rand(), TRUE)).'.'.$file_extension;
-					$file = new \System\Library\Database\Site\Files\Files(array('uploader' => $this->app()->session()->getAttribute('id'), 
-																				'filename' => $filename, 
-																				'file_size' => $request->filesData('upl_file', 'size'), 
-																				'upload_date' => time(),
-																				'title' => $request->postData('title'),
-																				'description' => $request->postData('description')));
+					$file = $this->app()->entities_handler()->load_entity('Files', 'Files', array('uploader' => $this->app()->session()->getAttribute('id'), 
+																								 'filename' => $filename, 
+																								 'file_size' => $request->filesData('upl_file', 'size'), 
+																								 'upload_date' => time(),
+																								 'title' => $request->postData('title'),
+																								 'description' => $request->postData('description')));
 					
 					if (move_uploaded_file($request->filesData('upl_file', 'tmp_name'), UPLPATH.$filename))
 					{
-						$this->app()->db_handler()->getManager('Files', 'Site')->add($file);
+						$this->app()->entities_handler()->load_entity_manager('Files')->add($file);
 						$this->app()->page()->addVar('upload_message', 'Upload réussi');
 					}
 					else
@@ -68,7 +68,7 @@ class FilesController extends \System\Library\BackController
 	{
 		$this->app()->page()->addVar('page_name', 'Téléchargement');
 		
-		$file = $this->app()->db_handler()->getManager('Files', 'Site')->getId($request->getData('id'));
+		$file = $this->app()->entities_handler()->load_entity_manager('Files')->getId($request->getData('id'));
 	}
 }
 

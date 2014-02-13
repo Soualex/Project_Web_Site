@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Library\Database\Site\Ip_banned;
+namespace System\Library\Entities\Ip_banned;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  

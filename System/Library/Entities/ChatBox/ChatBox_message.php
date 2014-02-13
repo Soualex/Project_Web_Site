@@ -4,7 +4,7 @@ namespace System\Library\Entities\ChatBox;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  
-class ChatBox extends \System\Library\Entity
+class ChatBox_message extends \System\Library\Entity
 {
 	protected $user;
 	protected $time;

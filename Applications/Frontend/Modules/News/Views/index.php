@@ -7,7 +7,7 @@ foreach ($listNews as $news)
 
 	<article>
 		<h2><img src="/Project_Web_Site/Applications/Frontend/Styles/Default/Images/news.png" alt="" /><?php echo html_escape($news->offsetGet('title')); ?></h2>
-		<em>Le <?php echo $news->offsetGet('add_date')->format('d/m/Y à H:i'); ?> par <?php echo $news->offsetGet('author')->offsetGet('username'); ?>.</em>
+		<em>Le <?php echo $news->offsetGet('add_date')->format('d/m/Y à H:i'); ?> par <?php echo $news->offsetGet('author'); ?>.</em>
 		<p><?php echo string_format($news->offsetGet('content')); ?></p>
 	</article>
 	

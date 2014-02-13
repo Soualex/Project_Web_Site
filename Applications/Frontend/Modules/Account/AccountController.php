@@ -14,7 +14,7 @@ class AccountController extends \System\Library\BackController
 		{		
 			if ($request->postExists('username') && $request->postExists('password'))
 			{
-				$account = $this->app()->db_handler()->getManager('Account', 'Site')->getUsername($request->postData('username'));
+				$account = $this->app()->entities_handler()->load_entity_manager('Account')->getUsername($request->postData('username'));
 				
 				if (!empty($account))
 				{
@@ -25,7 +25,7 @@ class AccountController extends \System\Library\BackController
 						$this->app()->session()->setAttribute('email', $account->offsetGet('email'));
 						$this->app()->session()->setAttribute('rank', $account->offsetGet('rank'));
 						$this->app()->session()->setAuthenticated(TRUE);
-						$this->app()->db_handler()->getManager('Account', 'Site')->updateLogin($account->offsetGet('id'));
+						$this->app()->entities_handler()->load_entity_manager('Account')->updateLogin($account->offsetGet('id'));
 					}
 					else
 					{
@@ -53,34 +53,34 @@ class AccountController extends \System\Library\BackController
 		if (!$this->app()->session()->isAuthenticated())
 		{		
 			if ($request->postExists('username') && $request->postExists('password') && $request->postExists('password_confirmation') && $request->postExists('email'))
-			{	
-				$account = new \System\Library\Database\Site\Account\Account(array('username' => $request->postData('username'), 
-																				   'password' => hash_password($request->postData('password')),
-																				   'email' => $request->postData('email')));
+			{
+				$account = $this->app()->entities_handler()->load_entity('Account', 'Account', array('username' => $request->postData('username'), 
+																									 'password' => hash_password($request->postData('password')),
+																									 'email' => $request->postData('email')));
 					
 				if ($request->postData('password') != $request->postData('password_confirmation'))
 				{
 					$account->setError('password', 'Les mots de passe sont différents.');
 				}
 				
-				if (!empty($this->app()->db_handler()->getManager('Account', 'Site')->getUsername($request->postData('username'))))
+				if (!empty($this->app()->entities_handler()->load_entity_manager('Account')->getUsername($request->postData('username'))))
 				{
 					$account->setError('username', 'Le nom d\'utilisateur est déjà utilisé');
 				}
 					
-				if (!empty($this->app()->db_handler()->getManager('Account', 'Site')->getEmail($request->postData('email'))))
+				if (!empty($this->app()->entities_handler()->load_entity_manager('Account')->getEmail($request->postData('email'))))
 				{
 					$account->setError('email', 'L\'adresse email est déjà utilisée');
 				}									   
-													   
-				if (!$account->hasError())
+								   
+				if (!$account->hasErrors())
 				{
-					$this->app()->db_handler()->getManager('Account', 'Site')->add($account);
+					$this->app()->entities_handler()->load_entity_manager('Account')->add($account);
 					$this->executeLogin($request);
 				}
 				else
 				{
-					$this->app()->page()->addVar('errors', $account->error());
+					$this->app()->page()->addVar('registration_errors', $account->errors());
 				}
 			}
 		}

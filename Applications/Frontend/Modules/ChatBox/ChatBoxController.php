@@ -10,7 +10,7 @@ class ChatBoxController extends \System\Library\BackController
 	{
 		$this->app()->page()->addVar('page_name', 'ChatBox');
 		
-		$this->app()->page()->addVar($this->app()->db_handler()->getManager('ChatBox', 'Site')->getList());
+		$this->app()->page()->addVar($this->app()->entities_handler()->load_entity_manager('ChatBox')->getList());
 	}
 }
 

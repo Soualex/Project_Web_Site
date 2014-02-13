@@ -16,27 +16,19 @@ abstract class Entity
 			$this->hydrate($data);
 		}
 	}
-	
-	function __set($name, $value)
-	{
-		$this->offsetSet($name, $value);
-	}
 	   
 	public function isNew()
 	{
 		return empty($this->id);
 	}
 	
-	public function hasError()
+	public function hasErrors()
 	{
 		return !empty($this->errors);
 	}
 	   
-	public function error($attr = NULL)
-	{
-		if (!empty($attr))	
-			return $this->errors[$attr];
-			
+	public function errors()
+	{			
 		return $this->errors;
 	}
 	
@@ -59,7 +51,8 @@ abstract class Entity
 	{
 		foreach ($data as $key => $value)
 		{
-			$this->offsetSet($key, $value);
+			$method = 'set'.ucfirst($key);
+			$this->$method($value);
 		}
 	}
 	   

@@ -11,20 +11,13 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  * @category	Router
  */
 class Router
-{
-	protected $HTTPRQST;
-	protected $CFG;
-	protected $DB;
-	
+{	
 	protected $_routes = array();
 	
-	public function __construct(\System\Core\Config $CFG, \System\Library\Database\Database_Handler $DB)
-	{
-		$this->CFG = $CFG;
-		$this->DB = $DB;
-		
+	public function __construct(\System\Library\EntitiesHandler $EntitiesHandler)
+	{		
 		// Get the routes class from database
-		$routes = $DB->getManager('Routes', 'Site')->getList();
+		$routes = $EntitiesHandler->load_entity_manager('Route')->getList();
 		
 		foreach ($routes as $route)
 		{
@@ -40,7 +33,7 @@ class Router
 	 * @access	public
 	 * @param	Route	the route to add
 	 */
-	public function addRoute(\System\Library\Database\Site\Routes\Routes $route)
+	public function addRoute(\System\Library\Entities\Route\Route $route)
 	{
 		if (!empty($route) && !in_array($route, $this->_routes))
 		{

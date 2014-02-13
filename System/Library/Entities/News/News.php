@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Library\Database\Site\News;
+namespace System\Library\Entities\News;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  
@@ -20,30 +20,28 @@ class News extends \System\Library\Entity
 
 	// SETTERS //
 
-	public function setAuthor($author_id)
-	{
-		global $DB;
-		
-		if (!empty($author_id) && is_numeric($author_id))
+	public function setAuthor($author)
+	{		
+		if (!empty($author_id) && is_string($author))
 		{
-			$this->author = $DB->getManager('Account', 'Site')->getId($author_id);
+			$this->author = $author;
 		}
 	}
 
 	public function setTitle($title)
 	{
-		if (!is_string($title) || empty($title))
-		  	$this->errors[] = "Le titre doit être une chaîne de caratères.";
-		else
+		if (is_string($title) || !empty($title))
+		{
 		  	$this->title = $title;
+		}
 	}
 
 	public function setContent($content)
 	{
-		if (!is_string($content) || empty($content))
-		 	$this->erreurs[] = "Le contenu de la news doit être une chaîne de caratères.";
-		else
-			$this->content = $content;
+		if (is_string($content) || !empty($content))
+		{
+		 	$this->content = $content;
+		}
 	}
 
 	public function setAdd_date(\DateTime $add_date)

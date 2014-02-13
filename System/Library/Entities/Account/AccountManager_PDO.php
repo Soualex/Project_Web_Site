@@ -1,10 +1,10 @@
 <?php
 
-namespace System\Library\Database\Site\Account;
+namespace System\Library\Entities\Account;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  
-use \System\Library\Database\Site\Account\Account;
+use \System\Library\Entities\Account\Account;
  
 class AccountManager_PDO extends AccountManager
 {
@@ -12,12 +12,13 @@ class AccountManager_PDO extends AccountManager
 	{
 		$sql = "SELECT id, author_id, title, content, add_date, update_date FROM news ORDER BY id DESC";
 
-		if ($debut != -1 || $limite != -1) {
+		if ($debut != -1 || $limite != -1) 
+		{
 			$sql .= ' LIMIT '.(int) $limite.' OFFSET '.(int) $debut;
 		}
 
-		$query = $this->dao->query($sql);
-		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Account\Account');
+		$query = $this->dao('Site')->query($sql);
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Entities\Account\Account');
 
 		$listeNews = $query->fetchAll();
 
@@ -34,11 +35,11 @@ class AccountManager_PDO extends AccountManager
 	
 	public function getId($id) 
 	{
-		$query = $this->dao->prepare('SELECT * FROM account WHERE id = :id');
-		$query->bindValue(':id', $id, \PDO::PARAM_INT);
+		$query = $this->dao('Site')->prepare('SELECT * FROM account WHERE id = :id');
+		$query->bindValue(':id', (int) $id, \PDO::PARAM_INT);
 		$query->execute();
 
-		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Account\Account');
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Entities\Account\Account');
 		$account = $query->fetch();
 		$query->closeCursor();
 
@@ -47,11 +48,11 @@ class AccountManager_PDO extends AccountManager
 	
 	public function getUsername($username) 
 	{
-		$query = $this->dao->prepare('SELECT * FROM account WHERE username = :username');
+		$query = $this->dao('Site')->prepare('SELECT * FROM account WHERE username = :username');
 		$query->bindValue(':username', $username, \PDO::PARAM_STR);
 		$query->execute();
 
-		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Account\Account');
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Entities\Account\Account');
 		$account = $query->fetch();
 		$query->closeCursor();
 
@@ -60,22 +61,22 @@ class AccountManager_PDO extends AccountManager
 	
 	public function getEmail($email) 
 	{
-		$query = $this->dao->prepare('SELECT * FROM account WHERE email = :email');
+		$query = $this->dao('Site')->prepare('SELECT * FROM account WHERE email = :email');
 		$query->bindValue(':email', $email, \PDO::PARAM_STR);
 		$query->execute();
 
-		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Database\Site\Account\Account');
+		$query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\System\Library\Entities\Account\Account');
 		$account = $query->fetch();
 		$query->closeCursor();
 
 		return $account;
 	}
 	
-	public function add(\System\Library\Database\Site\Account\Account $account) 
+	public function add(\System\Library\Entities\Account\Account $account) 
 	{
 		global $HTTPRQST;
 		
-		$query = $this->dao->prepare('INSERT INTO account(username, email, password, joinip) 
+		$query = $this->dao('Site')->prepare('INSERT INTO account(username, email, password, joinip) 
 												  VALUES(:username, :email, :password, :joinip)');
 												  
 		$query->bindValue(':username', $account->offsetGet('username'), \PDO::PARAM_STR);
@@ -92,7 +93,7 @@ class AccountManager_PDO extends AccountManager
 	{
 		global $HTTPRQST;
 	
-		$query = $this->dao->prepare('UPDATE account SET last_login = NOW(), last_ip = :last_ip WHERE id = :id');
+		$query = $this->dao('Site')->prepare('UPDATE account SET last_login = NOW(), last_ip = :last_ip WHERE id = :id');
 
 		$query->bindValue(':id', (int) $id, \PDO::PARAM_INT);
 		$query->bindValue(':last_ip', $HTTPRQST->getUserIP(), \PDO::PARAM_STR);

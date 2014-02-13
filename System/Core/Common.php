@@ -433,10 +433,10 @@ if (!function_exists('isBannned'))
 {
 	function isBannned()
 	{
-		global $HTTPRQST, $DB;
+		global $HTTPRQST, $_ENTITIES;
 			
 		// Get the routes configuation from database
-		$data = $DB->getManager('Ip_banned', 'Site')->get($HTTPRQST->getUserIP());
+		$data = $_ENTITIES->load_entity_manager('Ip_banned')->get($HTTPRQST->getUserIP());
 		
 		if (!empty($data) && strtotime($data->offsetGet('unban_date')) > time())
 		{

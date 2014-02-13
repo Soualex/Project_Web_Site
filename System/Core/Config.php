@@ -166,7 +166,7 @@ class Config
 	 * @param	DataBase_Handler
 	 * @return	void
 	 */
-	public function load_database_config(\System\Library\Database\Database_Handler $db_handler)
+	public function load_database_config(\System\Library\DatabaseHandler $db_handler)
 	{
 		// Fetch the config file
 		if (!file_exists(BASEPATH.'Config/database.php'))

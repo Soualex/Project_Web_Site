@@ -10,14 +10,14 @@ class PagesController extends \System\Library\BackController
 	{
 		$this->app()->page()->addVar('title', 'Pages Personnalisées');
 		
-		$pages = $this->app()->db_handler()->getManager('Pages', 'Site')->getList();
+		$pages = $this->app()->entities_handler()->load_entity_manager('Pages')->getList();
 		
 		$this->app()->page()->addVar('custom_pages', $pages);
 	}
 	
 	public function executeShow(\System\Core\HTTPRequest $request)
 	{
-		$page = $this->app()->db_handler()->getManager('Pages', 'Site')->get($request->getData('page_name'));
+		$page = $this->app()->entities_handler()->load_entity_manager('Pages')->get($request->getData('page_name'));
 
 		if (!empty($page))
 		{

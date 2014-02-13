@@ -29,7 +29,7 @@ class DatabaseHandler
 			}
 			else
 			{
-				show_error(500, 'Bad Configuration', '$db["'.$key.'"]["dbdriver"] value is incorrect.');
+				show_error(ERROR_LEVEL_FATAL, 'Bad Configuration', '$db["'.$key.'"]["dbdriver"] value is incorrect.');
 			}
 		}
 	}
@@ -53,7 +53,7 @@ class DatabaseHandler
 			return $this->_instances[$db];
 		}
 		
-		show_error(500, 'Instance Not Found', 'Instance '.$db.' does not exist.');
+		show_error(ERROR_LEVEL_FATAL, 'Instance Not Found', 'Instance '.$db.' does not exist.');
 	}
 	
 	protected function getConnection_PDO($host, $dbname, $user, $password)
@@ -65,26 +65,10 @@ class DatabaseHandler
 		} 
 		catch (PDOException $e) 
 		{
-			show_error(500, 'DataBase Error', $e->getMessage());
+			show_error(ERROR_LEVEL_FATAL, 'DataBase Error', $e->getMessage());
 		}
 		
 		return $db;
-	}
-	
-	public function getManager($table, $db)
-	{
-		if (!is_string($table) || empty($table) || !is_string($db) || empty($db))
-		{
-			show_error(500, 'Manager Error', 'The manager specified is invalid.');
-		}
-		 
-		if (!isset($this->_managers[$db.'.'.$table]))
-		{			
-			$table = '\System\Library\Database\\'.$db.'\\'.$table.'\\'.$table.'Manager_'.$this->getConfigOf($db, 'dbdriver');
-		  	$this->_managers[$db.'.'.$table] = new $table($this->getInstanceOf($db));
-		}
-		 
-		return $this->_managers[$db.'.'.$table];
 	}
 }
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace System\Library\Database\Site\Routes;
+namespace System\Library\Entities\Route;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  
-abstract class RoutesManager extends \System\Library\Manager
+abstract class RouteManager extends \System\Library\Manager
 {
 	/**
 	 * Méthode retournant une page précise
