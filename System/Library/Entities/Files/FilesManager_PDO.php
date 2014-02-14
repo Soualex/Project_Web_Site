@@ -44,7 +44,7 @@ class FilesManager_PDO extends FilesManager
 		$query = $this->dao->prepare('INSERT INTO files(uploader, filename, file_size, upload_date) 
 												  VALUES(:uploader, :filename, :file_size, NOW())');
 												  
-		$query->bindValue(':uploader', $file->offsetGet('uploader')->offsetGet('id'), \PDO::PARAM_INT);
+		$query->bindValue(':uploader', (int) $file->offsetGet('uploader'), \PDO::PARAM_INT);
 		$query->bindValue(':filename', $file->offsetGet('filename'), \PDO::PARAM_STR);
 		$query->bindValue(':file_size', $file->offsetGet('file_size'), \PDO::PARAM_INT);
 		
