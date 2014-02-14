@@ -14,13 +14,11 @@ class Files extends \System\Library\Entity
 	
 	// SETTERS
 	
-	public function setUploader($uploader_id)
+	public function setUploader($uploader)
 	{
-		global $DB;
-		
-		if (!empty($uploader_id) && is_numeric($uploader_id))
+		if (!empty($uploader) && is_string($uploader))
 		{
-			$this->uploader = $DB->getManager('Account', 'Site')->getId($uploader_id);
+			$this->uploader = $uploader;
 		}
 	}
 	
@@ -42,7 +40,7 @@ class Files extends \System\Library\Entity
 	
 	public function setUpload_date($upload_date)
 	{
-		if (!empty($upload_date) && is_int($upload_date))
+		if (!empty($upload_date) && is_numeric($upload_date))
 		{
 			$date = new \DateTime();
 			$this->upload_date = $date->setTimestamp($upload_date);
