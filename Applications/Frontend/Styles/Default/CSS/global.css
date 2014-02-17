@@ -51,13 +51,6 @@ a:hover
     border-bottom: 1px solid black;
 }
 
-label
-{
-	display: block;
-	width: 150px;
-	float: left;
-}
-
 table
 {
     border-collapse: collapse;
@@ -74,14 +67,46 @@ caption
 	font-weight: bold;
 }
 
-.error-block
+/* Forms */
+
+input 
 {
-	background-color: #B22222;
-	border: 1px #800000 solid;
-	margin: 10px;
-	padding: 5px;
-	border-radius: 6px 6px 6px;
-	background-image: url('../Images/error.png') no-repeat middle left;
+	padding: 2px;
+	border: 1px solid #CCC;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	outline: none;
+}
+
+input:focus 
+{
+	border-color: rgba(82, 168, 236, 0.75);
+	-moz-box-shadow: 0 0 8px rgba(82, 168, 236, 0.5);
+	-webkit-box-shadow: 0 0 8px rgba(82, 168, 236, 0.5);
+	box-shadow: 0 0 8px rgba(82, 168, 236, 0.5);
+}
+
+label
+{
+	display: block;
+	width: 150px;
+	float: left;
+}
+
+.tooltip 
+{
+	display: inline-block;
+	margin-left: 20px;
+	padding: 2px 4px;
+	border: 1px solid #555;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-color: rgba(191, 68, 68, 0.75);
+	-moz-box-shadow: 0 0 8px rgba(191, 68, 68, 0.5);
+	-webkit-box-shadow: 0 0 8px rgba(191, 68, 68, 0.5);
+	box-shadow: 0 0 8px rgba(191, 68, 68, 0.5);
+	border-radius: 4px;
 }
 
 /* Navigation */

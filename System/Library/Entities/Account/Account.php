@@ -15,6 +15,9 @@ class Account extends \System\Library\Entity
 	protected $last_login;
 	protected $last_ip;
 	protected $locked;
+	protected $first_name;
+	protected $last_name;
+	protected $birth_date;
 	
 	// SETTERS
 	
@@ -89,6 +92,31 @@ class Account extends \System\Library\Entity
 		}
 	}
 	
+	public function setFirst_name($firstname)
+	{
+		if (!empty($firstname) && is_string($firstname))
+		{
+			$this->first_name = $firstname;
+		}
+	}
+	
+	public function setLast_name($lastname)
+	{
+		if (!empty($$lastname) && is_string($$lastname))
+		{
+			$this->$last_name = $$lastname;
+		}
+	}
+	
+	public function setBirth_date($birth_date)
+	{
+		if (!empty($birth_date) && is_int($birth_date))
+		{
+			$date = new \DateTime();
+			$this->birth_date = $date->setTimestamp($birth_date);
+		}
+	}
+	
 	
 	// GETTERS
 	
@@ -135,6 +163,21 @@ class Account extends \System\Library\Entity
 	public function locked()
 	{
 		return $this->locked;
+	}
+
+	public function first_name()
+	{
+		return $this->first_name;
+	}
+	
+	public function last_name()
+	{
+		return $this->last_name;
+	}
+	
+	public function birth_date()
+	{
+		return $this->birth_date;
 	}
 }
 

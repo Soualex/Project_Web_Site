@@ -56,31 +56,39 @@ class AccountController extends \System\Library\BackController
 			{
 				$account = $this->app()->entities_handler()->load_entity('Account', 'Account', array('username' => $request->postData('username'), 
 																									 'password' => hash_password($request->postData('password')),
-																									 'email' => $request->postData('email')));
+																									 'email' => $request->postData('email'),
+																									 'first_name' => $request->postData('first_name'),
+																									 'last_name' => $request->postData('last_name'),
+																									 'birth_date' => $request->postData('birth_date')));
 					
 				if ($request->postData('password') != $request->postData('password_confirmation'))
 				{
-					$account->setError('password', 'Les mots de passe sont différents.');
+					$registration_error['password'] = 'Les mots de passe sont différents';
 				}
 				
 				if (!empty($this->app()->entities_handler()->load_entity_manager('Account')->getUsername($request->postData('username'))))
 				{
-					$account->setError('username', 'Le nom d\'utilisateur est déjà utilisé');
+					$registration_error['username'] = 'Le nom d\'utilisateur est déjà utilisé';
 				}
 					
 				if (!empty($this->app()->entities_handler()->load_entity_manager('Account')->getEmail($request->postData('email'))))
 				{
-					$account->setError('email', 'L\'adresse email est déjà utilisée');
-				}									   
-								   
-				if (!$account->hasErrors())
+					$registration_error['email'] = 'L\'adresse email est déjà utilisée';
+				}
+				
+				if ($account->hasErrors())
+				{
+					$registration_error['email'] = $account->errors();
+				}
+				
+				if (empty($registration_error))
 				{
 					$this->app()->entities_handler()->load_entity_manager('Account')->add($account);
 					$this->executeLogin($request);
 				}
 				else
 				{
-					$this->app()->page()->addVar('registration_errors', $account->errors());
+					$this->app()->page()->addVar('registration_error', $registration_error);
 				}
 			}
 		}

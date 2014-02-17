@@ -7,6 +7,8 @@
 			
 			<link rel="stylesheet" href="/Project_Web_Site/Applications/Frontend/Styles/Default/CSS/global.css" />
 			<link rel="stylesheet" href="/Project_Web_Site/Applications/Frontend/Styles/Default/CSS/chatbox.css" />
+			
+			<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
         </head>
          
         <body>

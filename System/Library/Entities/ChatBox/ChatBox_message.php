@@ -12,13 +12,11 @@ class ChatBox_message extends \System\Library\Entity
 	
 	// SETTERS
 	
-	public function setUser($user_id)
-	{
-		global $DB;
-		
-		if (!empty($user_id) && is_numeric($user_id))
+	public function setUser($user)
+	{		
+		if (!empty($user) && is_string($user))
 		{
-			$this->user = $DB->getManager('Account', 'Site')->getId($user_id);
+			$this->user = $user;
 		}
 	}
 	
