@@ -48,7 +48,7 @@
 			</nav>
 			
 			<section>
-				<?php echo $main_module; ?>
+				<?php require($views['main_view']); ?>
 			</section>
 			
 			<footer>

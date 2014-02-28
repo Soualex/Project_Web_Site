@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Library\Database\Site\Pages;
+namespace System\Library\Entities\Pages;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  

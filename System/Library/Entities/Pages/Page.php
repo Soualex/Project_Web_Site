@@ -1,6 +1,6 @@
 <?php
 
-namespace System\Library\Database\Site\Pages;
+namespace System\Library\Entities\Pages;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
  
@@ -17,19 +17,25 @@ class Page extends \System\Library\Entity
 	public function setUrl($name)
 	{
 		if (!empty($name) && is_string($name))
+		{
 			$this->name = $name;
+		}
 	}
 	
 	public function setName($title)
 	{
 		if (!empty($title) && is_string($title))
+		{
 			$this->title = $title;
+		}
 	}
 	
 	public function setContent($content)
 	{
 		if (!empty($content) && is_string($content))
+		{
 			$this->title = $content;
+		}
 	}
 	
 	public function setSecurity($security)

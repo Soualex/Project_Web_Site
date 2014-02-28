@@ -56,15 +56,15 @@ class Application
 		$_GET = array_merge($_GET, $this->route->offsetGet('vars'));
 		
 		// Instantiate the modules require by the template
-		$main_module = $this->getController($this->route->module(), $this->route->action());
-		$main_module->execute();
-		$this->page->addView('main_module', $main_module->viewPath());
+		$main_view = $this->getController($this->route->module(), $this->route->action());
+		$main_view->execute();
+		$this->page->addView('main_view', $main_view->view_path);
 		
 		foreach ($this->config->getItem(CFG_APP, 'modules_require') as $module => $action)
 		{
 			$array_buffer = $this->getController($module, $action);
 			$array_buffer->execute();
-			$this->page->addView($module.'_'.$action, $array_buffer->viewPath());
+			$this->page->addModule_view($module.'_'.$action, $array_buffer->view_path);
 			unset($array_buffer);
 		}
 		

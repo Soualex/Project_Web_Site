@@ -13,13 +13,7 @@ class Page
 	public function getGeneratedPage() 
 	{		
 		extract($this->vars);
-		
-		foreach ($this->views as $name => $view)
-		{		
-			ob_start();
-				require_once($view);
-			${$name} = ob_get_clean();
-		}
+		$views = $this->views;
 		 
 		ob_start();
 			require_once($this->template);
@@ -36,14 +30,14 @@ class Page
 		$this->vars[$var] = $value;
 	}
 	   
-	public function addView($name, $view) 
+	public function addView($view_name, $view) 
 	{
-		if (empty($view) || empty($name) || !file_exists($view))
+		if (empty($view_name) || empty($view) || !file_exists($view))
 		{
-			show_error(ERROR_LEVEL_FATAL, 'Invalid View', 'The view specified in "Page::addView()" is invalid.');
+			show_error(ERROR_LEVEL_FATAL, 'Vue invalide', 'La vue spécifiée dans "Page::addView()" est invalide.');
 		}
  
-		$this->views[$name] = $view;
+		$this->modules[$view_name] = $view;
 	}
 	
 	public function setTemplate($tpl_path) 
@@ -54,6 +48,11 @@ class Page
 		}
  
 		$this->template = $tpl_path;
+	}
+	
+	public function load_javascript($js_file)
+	{
+	
 	}
 }
 

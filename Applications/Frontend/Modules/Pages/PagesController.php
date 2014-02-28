@@ -27,7 +27,7 @@ class PagesController extends \System\Library\BackController
 		}
 		else
 		{
-			show_error(500, 'Page Inexistante', '5441df');
+			show_error(ERROR_LEVEL_ERROR, 'Page Inexistante', 'La page personnalisée à laquelle vous tentez d\'accéder n\'est pas présente dans notre base de données.');
 		}
 	}
 }
