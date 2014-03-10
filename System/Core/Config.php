@@ -1,5 +1,13 @@
 <?php
 
+/*
+	CLASS: Config
+	PATH: System\Core
+	DESCRIPTION: Script allowing to manage the configurations.
+	LAST UPDATE: 03/03/2014
+	AUTHORS: Soulalex
+*/
+
 namespace System\Core;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
@@ -91,12 +99,12 @@ class Config
 	public function load_general_config()
 	{
 		// Fetch the config file
-		if (!file_exists(BASEPATH.'Config/config.php'))
+		if (!file_exists(BASEPATH.'Config/Config.php'))
 		{
 			show_error(500, 'Missing Configuration File', 'The configuration file does not exist.');
 		}
 
-		require_once(BASEPATH.'Config/config.php');
+		require_once(BASEPATH.'Config/Config.php');
 
 		// Does the $config array exist in the file?
 		if (!isset($config) || !is_array($config))
@@ -140,12 +148,12 @@ class Config
 	public function load_application_config(\System\Core\Application $app)
 	{
 		// Fetch the config file
-		if (!file_exists(BASEPATH.'Config/applications.php'))
+		if (!file_exists(BASEPATH.'Config/Applications.php'))
 		{
 			show_error(500, 'Missing Configuration File', 'The configuration file does not exist.');
 		}
 
-		require_once(BASEPATH.'Config/applications.php');
+		require_once(BASEPATH.'Config/Applications.php');
 
 		// Does the $config array exist in the file?
 		if (!isset(${strtolower($app->name())}) || !is_array(${strtolower($app->name())}))
@@ -169,12 +177,12 @@ class Config
 	public function load_database_config(\System\Library\DatabaseHandler $db_handler)
 	{
 		// Fetch the config file
-		if (!file_exists(BASEPATH.'Config/database.php'))
+		if (!file_exists(BASEPATH.'Config/Database.php'))
 		{
 			show_error(500, 'Missing Database File', 'The database file does not exist.');
 		}
 
-		require(BASEPATH.'Config/database.php');
+		require(BASEPATH.'Config/Database.php');
 
 		// Does the $config array exist in the file?
 		if (!isset($db) || !is_array($db))

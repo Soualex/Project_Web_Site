@@ -5,7 +5,7 @@
 				<fieldset>
 					<legend>Informations Générales :</legend>
 					
-					<label for="username">Nom d'utilisateur</label>
+					<label for="username">Nom d'utilisateur :</label>
 					<input type="text" name="username" id="username" class="<?php echo isset($registration_error['username']) ? '.incorrect' : '.correct'; ?>" required autofocus />
 					<?php echo isset($registration_error['username']) ? '<span class="tooltip"><img src="/Project_Web_Site/Applications/Frontend/Styles/Default/Images/alert.png" class="icon" />'.$registration_error['username'].'</span>' : NULL; ?>
 					<br />

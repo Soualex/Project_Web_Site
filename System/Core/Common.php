@@ -168,10 +168,9 @@ if (!function_exists('log_message'))
 {
 	function log_message($level = 'error', $message, $php_error = FALSE)
 	{
-		global $CFG;
 		static $_log;
 
-		if ($CFG->getItem(CFG_GENERAL, 'log_threshold') == 0)
+		if ($GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'log_threshold') == 0)
 		{
 			return;
 		}
@@ -288,9 +287,7 @@ if (!function_exists('set_status_header'))
 if (!function_exists('_exception_handler'))
 {
 	function _exception_handler($severity, $message, $filepath, $line)
-	{
-		global $CFG;
-		
+	{		
 		 // We don't bother with "strict" notices since they tend to fill up
 		 // the log file with excess information that isn't normally very helpful.
 		 // For example, if you are running PHP 5 and you use version 4 style
@@ -311,7 +308,7 @@ if (!function_exists('_exception_handler'))
 		}
 
 		// Should we log the error?  No?  We're done...
-		if ($CFG->getItem(CFG_GENERAL, 'log_threshold') == 0)
+		if ($GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'log_threshold') == 0)
 		{
 			return;
 		}
@@ -371,16 +368,14 @@ if (!function_exists('remove_invisible_characters'))
 if (!function_exists('html_escape'))
 {
 	function html_escape($var)
-	{
-		global $CFG;
-		
+	{		
 		if (is_array($var))
 		{
 			return array_map('html_escape', $var);
 		}
 		else
 		{
-			return htmlentities($var, ENT_QUOTES, $CFG->getItem(CFG_GENERAL, 'charset'));
+			return htmlentities($var, ENT_QUOTES, $GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'charset'));
 		}
 	}
 }
@@ -414,8 +409,8 @@ if (!function_exists('string_format'))
 		$string = preg_replace('`\[b\](.+)\[/b\]`isU', '<strong>$1</strong>', $string); // Bold
 		$string = preg_replace('`\[i\](.+)\[/i\]`isU', '<em>$1</em>', $string); // Italic
 		$string = preg_replace('`\[u\](.+)\[/u\]`isU', '<u>$1</u>', $string); // Underline
-		$string = preg_replace('#http://[a-z0-9._/-]+#i', '<a href="$0">$0</a>', $string);
-		$string = preg_replace('`\[color=(red|blue|green|yellow|purple|olive)\](.+)\[/color\]`isU','<font color="$1">$2</font>', $string); // Color
+		$string = preg_replace('`\[s\](.+)\[/s\]`isU', '<u>$1</u>', $string); // Line-through
+		$string = preg_replace('`\[color=(#[A-Z0-9]+|[a-z]+)\](.+)\[/color\]`isU','<font color="$1">$2</font>', $string); // Color
 		
 		return $string;
 	}
@@ -432,11 +427,9 @@ if (!function_exists('string_format'))
 if (!function_exists('isBannned'))
 {
 	function isBannned()
-	{
-		global $HTTPRQST, $_ENTITIES;
-			
+	{			
 		// Get the routes configuation from database
-		$data = $_ENTITIES->load_entity_manager('Ip_banned')->get($HTTPRQST->getUserIP());
+		$data = $GLOBALS['$_MODELS_HANDLER']->load_model_manager('Ip_banned')->get($GLOBALS['$_HTTPRQST']->getUserIP());
 		
 		if (!empty($data) && strtotime($data->offsetGet('unban_date')) > time())
 		{

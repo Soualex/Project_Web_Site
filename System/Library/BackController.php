@@ -1,5 +1,13 @@
 <?php
 
+/*
+	CLASS: BackController
+	PATH: System\Core
+	DESCRIPTION: Script allowing to execute the modules.
+	LAST UPDATE: 03/03/2014
+	AUTHORS: Soulalex
+*/
+
 namespace System\Library;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');

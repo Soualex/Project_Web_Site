@@ -6,19 +6,17 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class DatabaseHandler
 {
-	private $config;
 	private $_instances = array();
 	private $_managers = array();
+
 	
-	public function __construct(\System\Core\Config $config)
-	{
-		$this->config = $config;
-		
+	public function __construct()
+	{		
 		// Load the databases configurations
-		$config->load_database_config($this);
+		$GLOBALS['$_CFG']->load_database_config($this);
 		
 		// Instantiate the connections to databases
-		foreach ($config->_database_config as $key => $config)
+		foreach ($GLOBALS['$_CFG']->_database_config as $key => $config)
 		{
 			$method = "getConnection_".$config['dbdriver'];
 			

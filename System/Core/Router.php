@@ -14,10 +14,10 @@ class Router
 {	
 	protected $_routes = array();
 	
-	public function __construct(\System\Library\EntitiesHandler $EntitiesHandler)
+	public function __construct()
 	{		
 		// Get the routes class from database
-		$routes = $EntitiesHandler->load_entity_manager('Route')->getList();
+		$routes = $GLOBALS['$_MODELS_HANDLER']->load_model_manager('Route')->getList();
 		
 		foreach ($routes as $route)
 		{
@@ -33,7 +33,7 @@ class Router
 	 * @access	public
 	 * @param	Route	the route to add
 	 */
-	public function addRoute(\System\Library\Entities\Route\Route $route)
+	public function addRoute(\System\Library\Models\Route\Route $route)
 	{
 		if (!empty($route) && !in_array($route, $this->_routes))
 		{
@@ -57,9 +57,9 @@ class Router
 			{
 				if (($varsValues = $route->match($url)) !== FALSE)
 				{
-					if ($route->hasVarsNames())
+					if ($route->offsetExists('varsNames'))
 					{
-						$varsNames = $route->offsetGet('varsNames');
+						$varsNames = explode(',', $route->offsetGet('varsNames'));
 						$listVars = array();
 						   
 						foreach ($varsValues as $key => $match)
@@ -72,7 +72,7 @@ class Router
 			
 						$route->offsetSet('vars', $listVars);
 					}
-					 
+
 					return $route;
 				}
 			}

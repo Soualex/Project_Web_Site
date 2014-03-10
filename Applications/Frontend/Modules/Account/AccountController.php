@@ -14,7 +14,7 @@ class AccountController extends \System\Library\BackController
 		{		
 			if ($request->postExists('username') && $request->postExists('password'))
 			{
-				$account = $this->app()->entities_handler()->load_entity_manager('Account')->getUsername($request->postData('username'));
+				$account = $this->app()->entities_handler()->load_model_manager('Account')->getUsername($request->postData('username'));
 				
 				if (!empty($account))
 				{
@@ -25,7 +25,7 @@ class AccountController extends \System\Library\BackController
 						$this->app()->session()->setAttribute('email', $account->offsetGet('email'));
 						$this->app()->session()->setAttribute('rank', $account->offsetGet('rank'));
 						$this->app()->session()->setAuthenticated(TRUE);
-						$this->app()->entities_handler()->load_entity_manager('Account')->updateLogin($account->offsetGet('id'));
+						$this->app()->entities_handler()->load_model_manager('Account')->updateLogin($account->offsetGet('id'));
 					}
 					else
 					{
@@ -54,7 +54,7 @@ class AccountController extends \System\Library\BackController
 		{		
 			if ($request->postExists('username') && $request->postExists('password') && $request->postExists('password_confirmation') && $request->postExists('email'))
 			{
-				$account = $this->app()->entities_handler()->load_entity('Account', 'Account', array('username' => $request->postData('username'), 
+				$account = $this->app()->entities_handler()->load_model('Account', 'Account', array('username' => $request->postData('username'), 
 																									 'password' => hash_password($request->postData('password')),
 																									 'email' => $request->postData('email'),
 																									 'first_name' => $request->postData('first_name'),
@@ -66,12 +66,12 @@ class AccountController extends \System\Library\BackController
 					$registration_error['password'] = 'Les mots de passe sont différents';
 				}
 				
-				if (!empty($this->app()->entities_handler()->load_entity_manager('Account')->getUsername($request->postData('username'))))
+				if (!empty($this->app()->entities_handler()->load_model_manager('Account')->getUsername($request->postData('username'))))
 				{
 					$registration_error['username'] = 'Le nom d\'utilisateur est déjà utilisé';
 				}
 					
-				if (!empty($this->app()->entities_handler()->load_entity_manager('Account')->getEmail($request->postData('email'))))
+				if (!empty($this->app()->entities_handler()->load_model_manager('Account')->getEmail($request->postData('email'))))
 				{
 					$registration_error['email'] = 'L\'adresse email est déjà utilisée';
 				}
@@ -83,7 +83,7 @@ class AccountController extends \System\Library\BackController
 				
 				if (empty($registration_error))
 				{
-					$this->app()->entities_handler()->load_entity_manager('Account')->add($account);
+					$this->app()->entities_handler()->load_model_manager('Account')->add($account);
 					$this->executeLogin($request);
 				}
 				else

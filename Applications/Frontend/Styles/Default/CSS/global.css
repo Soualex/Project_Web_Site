@@ -67,6 +67,11 @@ caption
 	font-weight: bold;
 }
 
+.alert
+{
+	background: url("Images/alert2.png") no-repeat center left;
+}
+
 /* Forms */
 
 input 

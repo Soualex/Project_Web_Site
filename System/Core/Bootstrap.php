@@ -16,7 +16,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */
 	require_once(BASEPATH.'Core/Common.php');
 	
-	require_once(BASEPATH.'Config/constants.php');
+	require_once(BASEPATH.'Config/Constants.php');
 
 /*
  * ------------------------------------------------------
@@ -32,65 +32,34 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
  * ------------------------------------------------------
- *  Instantiate the config class
+ *  Instantiate the globals classes
  * ------------------------------------------------------
  */
-	$CFG = new System\Core\Config();
+	$GLOBALS['$_CFG'] = new System\Core\Config();
+	$GLOBALS['$_HTTPRQST'] = new System\Core\HTTPRequest();
+	$GLOBALS['$_HTTPRESP'] = new System\Core\HTTPResponse();
+	$GLOBALS['$_DB_HANDLER'] = new System\Library\DatabaseHandler();
+	$GLOBALS['$_MODELS_HANDLER'] = new System\Library\ModelsHandler();
+	$GLOBALS['$_RTR'] = new System\Core\Router();
+	$GLOBALS['$_SESSION'] = new System\Core\Session();
 	
+/*
+ * ------------------------------------------------------
+ *  Generate generals configuartions
+ * ------------------------------------------------------
+ */
 	// Load the Generals Configurations
-	$CFG->load_general_config();
+	$GLOBALS['$_CFG']->load_general_config();
 
 	// Do we have any manually set config items in the index.php file?
 	if (isset($assign_to_config) && is_array($assign_to_config))
 	{
 		foreach ($assign_to_config as $key => $value)
 		{
-			$Config->setConfig(CFG_GENERAL, $key, $value);
+			$GLOBALS['$_CFG']->setConfig(CFG_GENERAL, $key, $value);
 		}
 	}
-	
-/*
- * ------------------------------------------------------
- *  Instantiate the HTTPRequest class
- * ------------------------------------------------------
- */
-	$HTTPRQST = new System\Core\HTTPRequest();
-	
-/*
- * ------------------------------------------------------
- *  Instantiate the HTTPRequest class
- * ------------------------------------------------------
- */
-	$HTTPRESP = new System\Core\HTTPResponse($CFG);
-	
-/*
- * ------------------------------------------------------
- *  Instantiate the DataBase class
- * ------------------------------------------------------
- */
-	$DB = new System\Library\DatabaseHandler($CFG);
-	
-/*
- * ------------------------------------------------------
- *  Instantiate the DataBase class
- * ------------------------------------------------------
- */
-	$_ENTITIES = new System\Library\EntitiesHandler($DB);
 
-/*
- * ------------------------------------------------------
- *  Instantiate the Router class
- * ------------------------------------------------------
- */
-	$RTR = new System\Core\Router($_ENTITIES);
-	
-/*
- * ------------------------------------------------------
- *  Instantiate the Session class
- * ------------------------------------------------------
- */
-	$SESSION = new System\Core\Session($CFG, $HTTPRQST);
-	
 /*
  * ------------------------------------------------------
  *  Verify that the user is not banned
@@ -108,16 +77,17 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  *
  */
  	// Load the route class corresponding to the user URI
-	$route = $RTR->getRoute($HTTPRQST->getURL());
+	$app_route = $GLOBALS['$_RTR']->getRoute($GLOBALS['$_HTTPRQST']->getURL());
 	
-	if (is_dir(APPPATH.$route->application()))
+	if (is_dir(APPPATH.$app_route->application()))
 	{
-		$app = new System\Core\Application($route, $HTTPRQST, $HTTPRESP, $SESSION, $CFG, $_ENTITIES);
+		$app_class = 'Applications\\'.$app_route->application().'\\'.ucfirst($app_route->application()).'Application';
+		$app = new $app_class($app_route);
 		$app->run();
 	}
 	else
 	{
-		show_error(ERROR_LEVEL_FATAL, 'Not Found', 'Application Directory does not exist.');
+		show_error(ERROR_LEVEL_FATAL, 'Application Error', 'Application Directory does not exist.');
 	}
 	
 ?>

@@ -3,9 +3,9 @@
 <article>
 <?php
 
-foreach ($custom_pages as $pages)
+foreach ($custom_pages as $page)
 {
-	echo '<p>'.html_escape($custom_page->offsetGet('title')).'</p>';
+	echo '<p><img src="/Project_Web_Site/Applications/Frontend/Styles/Default/Images/page_icon.png" /><a href="'.$config->getItem(CFG_GENERAL, 'base_url').'page/'.$page->offsetGet('url').'">'.string_format($page->offsetGet('name')).'</a></p>';
 }
 
 ?>

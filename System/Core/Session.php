@@ -9,24 +9,24 @@ session_start();
  
 class Session
 {	
-	public function __construct(\System\Core\Config $config, \System\Core\HTTPRequest $request)
+	public function __construct()
 	{		
 		if (!$this->isAuthenticated())
 		{
-			if ($request->cookieExists($config->getItem(CFG_GENERAL, 'sess_cookie_name').'id'))
+			if ($GLOBALS['$_HTTPRQST']->cookieExists($GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'sess_cookie_name').'id'))
 			{
 				// Set the session with the cookies values
-				$this->setAttribute('id', $request->cookieData('id'));
-				$this->setAttribute('username', $request->cookieData('username'));
-				$this->setAttribute('email', $request->cookieData('email'));
-				$this->setAttribute('rank', $request->cookieData('rank'));
+				$this->setAttribute('id', $GLOBALS['$_HTTPRQST']->cookieData('id'));
+				$this->setAttribute('username', $GLOBALS['$_HTTPRQST']->cookieData('username'));
+				$this->setAttribute('email', $GLOBALS['$_HTTPRQST']->cookieData('email'));
+				$this->setAttribute('rank', $GLOBALS['$_HTTPRQST']->cookieData('rank'));
 				$this->setAuthenticated(TRUE);
 				
 				// Renewal the cookies expiration time
-				$this->setCookie($config->getItem(CFG_GENERAL, 'sess_cookie_name').'id', $this->getAttribute('id'), $config->getItem(CFG_GENERAL, 'sess_expiration'));
-				$this->setCookie($config->getItem(CFG_GENERAL, 'sess_cookie_name').'username', $this->getAttribute('username'), $config->getItem(CFG_GENERAL, 'sess_expiration'));
-				$this->setCookie($config->getItem(CFG_GENERAL, 'sess_cookie_name').'email', $this->getAttribute('email'), $config->getItem(CFG_GENERAL, 'sess_expiration'));
-				$this->setCookie($config->getItem(CFG_GENERAL, 'sess_cookie_name').'rank', $this->getAttribute('rank'), $config->getItem(CFG_GENERAL, 'sess_expiration'));
+				$this->setCookie($GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'sess_cookie_name').'id', $this->getAttribute('id'), $GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'sess_expiration'));
+				$this->setCookie($GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'sess_cookie_name').'username', $this->getAttribute('username'), $GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'sess_expiration'));
+				$this->setCookie($GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'sess_cookie_name').'email', $this->getAttribute('email'), $GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'sess_expiration'));
+				$this->setCookie($GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'sess_cookie_name').'rank', $this->getAttribute('rank'), $GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'sess_expiration'));
 			}
 			else
 			{
