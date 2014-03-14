@@ -10,33 +10,33 @@ class AccountController extends \System\Library\BackController
 	{
 		$this->app()->page()->addVar('page_name', 'Connexion');
 		
-		if (!$this->app()->session()->isAuthenticated() || $this->app()->session()->getAttribute('login_attempts') > 3)
+		if (!$GLOBALS['$_SESSION']->isAuthenticated() || $GLOBALS['$_SESSION']->getAttribute('login_attempts') > 3)
 		{		
 			if ($request->postExists('username') && $request->postExists('password'))
 			{
-				$account = $this->app()->entities_handler()->load_model_manager('Account')->getUsername($request->postData('username'));
+				$account = $GLOBALS['$_MODELS_HANDLER']->load_model_manager('Account')->getUsername($request->postData('username'));
 				
 				if (!empty($account))
 				{
 					if ($account->offsetGet('password') == hash_password($request->postData('password')))
 					{
-						$this->app()->session()->setAttribute('id', $account->offsetGet('id'));
-						$this->app()->session()->setAttribute('username', $account->offsetGet('username'));
-						$this->app()->session()->setAttribute('email', $account->offsetGet('email'));
-						$this->app()->session()->setAttribute('rank', $account->offsetGet('rank'));
-						$this->app()->session()->setAuthenticated(TRUE);
-						$this->app()->entities_handler()->load_model_manager('Account')->updateLogin($account->offsetGet('id'));
+						$GLOBALS['$_SESSION']->setAttribute('id', $account->offsetGet('id'));
+						$GLOBALS['$_SESSION']->setAttribute('username', $account->offsetGet('username'));
+						$GLOBALS['$_SESSION']->setAttribute('email', $account->offsetGet('email'));
+						$GLOBALS['$_SESSION']->setAttribute('rank', $account->offsetGet('rank'));
+						$GLOBALS['$_SESSION']->setAuthenticated(TRUE);
+						$GLOBALS['$_MODELS_HANDLER']->load_model_manager('Account')->updateLogin($account->offsetGet('id'));
 					}
 					else
 					{
 						$this->app()->page()->addVar('login_error_password', 'Mot de passe incorrecte.');
-						$this->app()->session()->setAttribute('login_attempts', $this->app()->session()->getAttribute('login_attempts')+1);
+						$GLOBALS['$_SESSION']->setAttribute('login_attempts', $GLOBALS['$_SESSION']->getAttribute('login_attempts')+1);
 					}
 				}
 				else
 				{
 					$this->app()->page()->addVar('login_error_username', 'Nom d\'utilisateur incorrecte.');
-					$this->app()->session()->setAttribute('login_attempts', $this->app()->session()->getAttribute('login_attempts')+1);
+					$GLOBALS['$_SESSION']->setAttribute('login_attempts', $GLOBALS['$_SESSION']->getAttribute('login_attempts')+1);
 				}
 			}
 		}
@@ -50,11 +50,11 @@ class AccountController extends \System\Library\BackController
 	{
 		$this->app()->page()->addVar('page_name', 'Inscription');
 		
-		if (!$this->app()->session()->isAuthenticated())
+		if (!$GLOBALS['$_SESSION']->isAuthenticated())
 		{		
 			if ($request->postExists('username') && $request->postExists('password') && $request->postExists('password_confirmation') && $request->postExists('email'))
 			{
-				$account = $this->app()->entities_handler()->load_model('Account', 'Account', array('username' => $request->postData('username'), 
+				$account = $GLOBALS['$_MODELS_HANDLER']->load_model_entity('Account', 'Account', array('username' => $request->postData('username'), 
 																									 'password' => hash_password($request->postData('password')),
 																									 'email' => $request->postData('email'),
 																									 'first_name' => $request->postData('first_name'),
@@ -66,12 +66,12 @@ class AccountController extends \System\Library\BackController
 					$registration_error['password'] = 'Les mots de passe sont différents';
 				}
 				
-				if (!empty($this->app()->entities_handler()->load_model_manager('Account')->getUsername($request->postData('username'))))
+				if (!empty($GLOBALS['$_MODELS_HANDLER']->load_model_manager('Account')->getUsername($request->postData('username'))))
 				{
 					$registration_error['username'] = 'Le nom d\'utilisateur est déjà utilisé';
 				}
 					
-				if (!empty($this->app()->entities_handler()->load_model_manager('Account')->getEmail($request->postData('email'))))
+				if (!empty($GLOBALS['$_MODELS_HANDLER']->load_model_manager('Account')->getEmail($request->postData('email'))))
 				{
 					$registration_error['email'] = 'L\'adresse email est déjà utilisée';
 				}
@@ -83,7 +83,7 @@ class AccountController extends \System\Library\BackController
 				
 				if (empty($registration_error))
 				{
-					$this->app()->entities_handler()->load_model_manager('Account')->add($account);
+					$GLOBALS['$_MODELS_HANDLER']->load_model_manager('Account')->add($account);
 					$this->executeLogin($request);
 				}
 				else
@@ -100,13 +100,13 @@ class AccountController extends \System\Library\BackController
 	
 	public function executeLogout(\System\Core\HTTPRequest $request)
 	{
-		if ($this->app()->session()->isAuthenticated())
+		if ($GLOBALS['$_SESSION']->isAuthenticated())
 		{
-			$this->app()->session()->setAttribute('id', 0);
-			$this->app()->session()->setAttribute('username', NULL);
-			$this->app()->session()->setAttribute('email', NULL);
-			$this->app()->session()->setAttribute('rank', NULL);
-			$this->app()->session()->setAuthenticated(FALSE);
+			$GLOBALS['$_SESSION']->setAttribute('id', 0);
+			$GLOBALS['$_SESSION']->setAttribute('username', NULL);
+			$GLOBALS['$_SESSION']->setAttribute('email', NULL);
+			$GLOBALS['$_SESSION']->setAttribute('rank', NULL);
+			$GLOBALS['$_SESSION']->setAuthenticated(FALSE);
 		}
 		else
 		{

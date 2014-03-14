@@ -19,7 +19,7 @@ abstract class BackController extends \System\Library\ApplicationComponent
 	protected $_view;
 	public $view_path;
 	   
-	public function __construct(\System\Core\Application $app, $module, $action)
+	public function __construct(\System\Library\Application $app, $module, $action)
 	{	
 		parent::__construct($app);
 		$this->setModule($module);
@@ -39,7 +39,7 @@ abstract class BackController extends \System\Library\ApplicationComponent
 		}
 		
 		// Execute the function
-		$this->$method($this->app()->httpRequest());
+		$this->$method($GLOBALS['$_HTTPRQST']);
 	}
 	   
 	public function setModule($module)

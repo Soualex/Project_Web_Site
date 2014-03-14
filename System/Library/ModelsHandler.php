@@ -6,25 +6,25 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class ModelsHandler
 {
-	protected $_model;
+	protected $_model_entity;
 	protected $_model_manager;
 
 	
-	public function load_model($model, $class, array $args = NULL)
+	public function load_model_entity($model, $entity, array $args = NULL)
 	{
-		if (!is_string($model) || empty($model) || !is_string($class) || empty($class))
+		if (!is_string($model) || empty($model) || !is_string($entity) || empty($entity))
 		{
 			show_error(ERROR_LEVEL_FATAL, 'Erreur Arguments', 'Les arguments spécifiés dans la fonction "EntitiesHandler::load_entity()" sont invalides.');
 		}
 		else
 		{
-			if (!isset($this->_entity[$class]))
+			if (!isset($this->_model_entity[$entity]))
 			{
-				$class_file = '\System\Library\Models\\'.$model.'\\'.$class;		
-				$this->_entity[$class] = new $class_file($args);
+				$entity_file = '\System\Library\Models\\'.$model.'\\'.$entity;		
+				$this->_model_entity[$entity] = new $entity_file($args);
 			}
 			
-			return $this->_entity[$class];
+			return $this->_model_entity[$entity];
 		}
 	}
 	

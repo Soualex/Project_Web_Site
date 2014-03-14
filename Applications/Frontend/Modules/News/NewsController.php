@@ -10,7 +10,7 @@ class NewsController extends \System\Library\BackController
 	{
 		$this->app()->page()->addVar('page_name', 'Actualités');
 
-		$nombreDePages = ceil($this->app()->entities_handler()->load_model_manager('News')->countNews() / $this->app()->config()->getItem(CFG_APP, 'articles_per_page'));
+		$nombreDePages = ceil($GLOBALS['$_MODELS_HANDLER']->load_model_manager('News')->countNews() / $GLOBALS['$_CFG']->getItem(CFG_APP, 'articles_per_page'));
 
 		if($request->getExists('page') && $request->getData('page') > 0)
 		{
@@ -26,9 +26,9 @@ class NewsController extends \System\Library\BackController
 			$pageActuelle = 1;
 		}
 
-		$premiereEntree = ($pageActuelle - 1) * $this->app()->config()->getItem(CFG_APP, 'articles_per_page');
+		$premiereEntree = ($pageActuelle - 1) * $GLOBALS['$_CFG']->getItem(CFG_APP, 'articles_per_page');
 		
-		$listNews = $this->app()->entities_handler()->load_model_manager('News')->getList($premiereEntree, $this->app()->config()->getItem(CFG_APP, 'articles_per_page'));
+		$listNews = $GLOBALS['$_MODELS_HANDLER']->load_model_manager('News')->getList($premiereEntree, $GLOBALS['$_CFG']->getItem(CFG_APP, 'articles_per_page'));
 	
 		$this->app()->page()->addVar('nombreDePages', $nombreDePages);
 		$this->app()->page()->addVar('pageActuelle', $pageActuelle);

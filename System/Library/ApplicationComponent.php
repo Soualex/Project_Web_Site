@@ -8,7 +8,7 @@ abstract class ApplicationComponent
 {
 	protected $_app;
 	   
-	public function __construct(\System\Core\Application $app) 
+	public function __construct(\System\Library\Application $app) 
 	{
 		$this->_app = $app;
 	}

@@ -20,7 +20,7 @@ class ChatBoxController extends \System\Library\BackController
 		$this->app()->page()->load_javascript('ChatBox');
 		$this->app()->page()->load_css('chatbox');
 		
-		$messages = $this->app()->entities_handler()->load_model_manager('ChatBox')->messagesList();
+		$messages = $GLOBALS['$_MODELS_HANDLER']->load_model_manager('ChatBox')->messagesList();
 
 		
 	}

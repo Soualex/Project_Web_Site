@@ -10,12 +10,12 @@ class PagesController extends \System\Library\BackController
 	{
 		$this->app()->page()->addVar('title', 'Pages Personnalisées');
 		
-		$pages = $this->app()->entities_handler()->load_model_manager('Pages')->getList();
+		$pages = $GLOBALS['$_MODELS_HANDLER']->load_model_manager('Pages')->getList();
 		
 		$custom_pages = array();
 		foreach ($pages as $page)
 		{
-			if ($page->offsetGet('security') <= $this->app()->session()->getAttribute('rank'))
+			if ($page->offsetGet('security') <= $GLOBALS['$_SESSION']->getAttribute('rank'))
 			{
 				$custom_pages[] = $page;
 			}
@@ -26,9 +26,9 @@ class PagesController extends \System\Library\BackController
 	
 	public function executeShow(\System\Core\HTTPRequest $request)
 	{
-		$page = $this->app()->entities_handler()->load_model_manager('Pages')->get($request->getData('page_url'));
+		$page = $GLOBALS['$_MODELS_HANDLER']->load_model_manager('Pages')->get($request->getData('page_url'));
 
-		if (!empty($page) && $page->offsetGet('security') <= $this->app()->session()->getAttribute('rank'))
+		if (!empty($page) && $page->offsetGet('security') <= $GLOBALS['$_SESSION']->getAttribute('rank'))
 		{
 			$this->app()->page()->addVar('title', $page->offsetGet('name'));
 			$this->app()->page()->addVar('custom_page', $page);

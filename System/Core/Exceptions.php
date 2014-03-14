@@ -85,13 +85,11 @@ class Exceptions {
 	 * @return	string
 	 */
 	function show_error($heading, $message)
-	{
-		global $SESSION, $HTTPRESP;
+	{		
+		$GLOBALS['$_SESSION']->setAttribute('error_title', $heading);
+		$GLOBALS['$_SESSION']->setAttribute('error_message', implode('</p><p>', (!is_array($message) ? array($message) : $message)));
 		
-		$SESSION->setAttribute('error_title', $heading);
-		$SESSION->setAttribute('error_message', implode('</p><p>', (!is_array($message) ? array($message) : $message)));
-		
-		$HTTPRESP->redirect('error');
+		$GLOBALS['$_HTTPRESP']->redirect('error');
 	}
 
 	/**

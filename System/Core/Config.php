@@ -145,7 +145,7 @@ class Config
 	 * @param	Application
 	 * @return	void
 	 */
-	public function load_application_config(\System\Core\Application $app)
+	public function load_application_config(\System\Library\Application $app)
 	{
 		// Fetch the config file
 		if (!file_exists(BASEPATH.'Config/Applications.php'))

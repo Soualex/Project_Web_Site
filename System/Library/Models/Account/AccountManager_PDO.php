@@ -73,16 +73,14 @@ class AccountManager_PDO extends AccountManager
 	}
 	
 	public function add(\System\Library\Models\Account\Account $account) 
-	{
-		global $HTTPRQST;
-		
+	{		
 		$query = $this->dao('Site')->prepare('INSERT INTO account(username, email, password, joinip) 
 												  VALUES(:username, :email, :password, :joinip)');
 												  
 		$query->bindValue(':username', $account->offsetGet('username'), \PDO::PARAM_STR);
 		$query->bindValue(':email', $account->offsetGet('email'), \PDO::PARAM_STR);
 		$query->bindValue(':password', $account->offsetGet('password'), \PDO::PARAM_STR);
-		$query->bindValue(':joinip', $HTTPRQST->getUserIP(), \PDO::PARAM_STR);
+		$query->bindValue(':joinip', $GLOBALS['$_HTTPRQST']->getUserIP(), \PDO::PARAM_STR);
 		
 		$query->execute();
 		
@@ -91,12 +89,10 @@ class AccountManager_PDO extends AccountManager
 	
 	public function updateLogin($id)
 	{
-		global $HTTPRQST;
-	
 		$query = $this->dao('Site')->prepare('UPDATE account SET last_login = NOW(), last_ip = :last_ip WHERE id = :id');
 
 		$query->bindValue(':id', (int) $id, \PDO::PARAM_INT);
-		$query->bindValue(':last_ip', $HTTPRQST->getUserIP(), \PDO::PARAM_STR);
+		$query->bindValue(':last_ip', $GLOBALS['$_HTTPRQST']->getUserIP(), \PDO::PARAM_STR);
 		
 		$query->execute();
 		

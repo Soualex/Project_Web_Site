@@ -8,13 +8,13 @@ class ErrorController extends \System\Library\BackController
 {
 	public function executeShow(\System\Core\HTTPRequest $request)
 	{
-		if ($this->app()->session()->hasAttribute('error_title') && $this->app()->session()->hasAttribute('error_message'))
+		if ($GLOBALS['$_SESSION']->hasAttribute('error_title') && $GLOBALS['$_SESSION']->hasAttribute('error_message'))
 		{
-			$this->app()->page()->addVar('error_title', $this->app()->session()->getAttribute('error_title'));
-			$this->app()->session()->unsetAttribute('error_title');
+			$this->app()->page()->addVar('error_title', $GLOBALS['$_SESSION']->getAttribute('error_title'));
+			$GLOBALS['$_SESSION']->unsetAttribute('error_title');
 			
-			$this->app()->page()->addVar('error_message', $this->app()->session()->getAttribute('error_message'));
-			$this->app()->session()->unsetAttribute('error_title');
+			$this->app()->page()->addVar('error_message', $GLOBALS['$_SESSION']->getAttribute('error_message'));
+			$GLOBALS['$_SESSION']->unsetAttribute('error_title');
 		}
 		else
 		{
