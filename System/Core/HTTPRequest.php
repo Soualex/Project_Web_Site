@@ -2,13 +2,13 @@
 
 namespace System\Core;
 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+if (!defined('BASE_PATH')) exit('No direct script access allowed');
 
 class HTTPRequest 
 {
 	public function cookieData($key) 
 	{
-		return isset($_COOKIE[$key]) ? $_COOKIE[$key] : NULL;
+		return isset($_COOKIE[$key]) ? $_COOKIE[$key] : FALSE;
 	}
 	
 	public function cookieExists($key) 
@@ -18,7 +18,7 @@ class HTTPRequest
 	   
 	public function getData($key) 
 	{
-		return isset($_GET[$key]) ? $_GET[$key] : NULL;
+		return isset($_GET[$key]) ? $_GET[$key] : FALSE;
 	}
  
 	public function getExists($key) 
@@ -33,7 +33,7 @@ class HTTPRequest
 
 	public function postData($key) 
 	{
-		return isset($_POST[$key]) ? $_POST[$key] : NULL;
+		return isset($_POST[$key]) ? $_POST[$key] : FALSE;
 	}
 
 	public function postExists($key) 
@@ -43,7 +43,7 @@ class HTTPRequest
 	
 	public function filesData($attr, $key) 
 	{
-		return isset($_FILES[$attr][$key]) ? $_FILES[$attr][$key] : NULL;
+		return isset($_FILES[$attr][$key]) ? $_FILES[$attr][$key] : FALSE;
 	}
 
 	public function filesExists($key) 

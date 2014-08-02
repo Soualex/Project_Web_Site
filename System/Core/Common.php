@@ -80,47 +80,6 @@ if (!function_exists('is_really_writable'))
 // ------------------------------------------------------------------------
 
 /**
-* Class registry
-*
-* This function acts as a singleton.  If the requested class does not
-* exist it is instantiated and set to a static variable.  If it has
-* previously been instantiated the variable is returned.
-*
-* @access	public
-* @param	string	the class name being requested
-* @param	string	the directory where the class should be found
-* @param	string	the class name prefix
-* @return	object
-*/
-if (!function_exists('load_class'))
-{
-	function load_class($class)
-	{
-		$classFile =  HOMEPATH.'/'.str_replace('\\', '/', $class).'.php';
-		
-		// Verify that the file of the class exist
-		if (file_exists($classFile))
-		{
-			require_once($classFile);
-			
-			// Verify that the class exist
-			if (!class_exists($class))
-			{
-				exit('Unable to locate the specified class: '.$class.'.php');
-			}
-		}
-		else
-		{
-			exit('Unable to locate the specified class: '.$class.'.php');
-		}
-	}
-	
-	spl_autoload_register('load_class');
-}
-
-// ------------------------------------------------------------------------
-
-/**
 * Error Handler
 *
 * This function lets us invoke the exception class and

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<routes>
+	<route name="frontend_news_home" path="/" module="News" action="list" vars="" security="0" />
+</routes>

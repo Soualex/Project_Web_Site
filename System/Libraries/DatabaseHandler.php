@@ -32,12 +32,12 @@ class DatabaseHandler
 		}
 	}
 	
-	public function instanceExist($db)
+	public function instanceOfExist($db)
 	{
 		return is_string($db) && array_key_exists($db, $this->_instances) && !empty($this->_instances[$db]) ? TRUE : FALSE;
 	}
 	
-	public function getConfigOf($db, $item)
+	public function getConfig($db, $item)
 	{		
 		$dbconfig = $this->config->getItem(CFG_DATABASE, $db);
 		return $dbconfig[$item];

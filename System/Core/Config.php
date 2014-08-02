@@ -10,19 +10,20 @@
 
 namespace System\Core;
 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+use System\Library\DatabaseHandler;
+use System\Core\Application;
+
+if (!defined('BASE_PATH')) exit('No direct script access allowed');
 
 class Config
 {
 	const CFG_GENERAL = 1;
 	const CFG_APP = 2;
 	const CFG_DATABASE = 3;
-	const CFG_SERVER = 4;
 	
-	public $_general_config = array();
-	public $_application_config = array();
-	public $_database_config = array();
-	public $_server_config = array();
+	public static $_general_config = array();
+	public static $_application_config = array();
+	public static $_database_config = array();
 	
 	/**
 	 * Fetch a config file item
@@ -37,20 +38,17 @@ class Config
 	{
 		switch ($config_type)
 		{
-			case CFG_GENERAL:
+			case self::CFG_GENERAL:
 				return isset($this->_general_config[$item]) ? $this->_general_config[$item] : NULL;
 
-			case CFG_APP:
+			case self::CFG_APP:
 				return isset($this->_application_config[$item]) ? $this->_application_config[$item] : NULL;
 			
-			case CFG_DATABASE:
+			case self::CFG_DATABASE:
 				return isset($this->_database_config[$item]) ? $this->_database_config[$item] : NULL;
 				
-			case CFG_SERVER:
-				return isset($this->_server_config[$item]) ? $this->_server_config[$item] : NULL;
-				
 			default:
-				show_error(500, 'Argument Invalid', 'The value you had passed on the argument $config_type is not avalible.');
+				show_error(500, 'Invalid Argument', 'The value you passed on the argument "$config_type" is not avalible.');
 				break;
 		}
 	}
@@ -80,12 +78,8 @@ class Config
 				$this->_database_config[$item] = $value;
 				break;
 				
-			case self::CFG_SERVER:
-				$this->_server_config[$item] = $value;
-				break;
-				
 			default:
-				show_error(500, 'Argument Invalid', 'The value you had passed on the argument $config_type is not avalible.');
+				show_error(500, 'Invalid Argument', 'The value you passed on the argument "$config_type" is not avalible.');
 				break;
 		}
 	}
@@ -96,29 +90,18 @@ class Config
 	 * @access	public
 	 * @return	void
 	 */
-	public function load_general_config()
+	public function loadGeneralConfig()
 	{
-		// Fetch the config file
-		if (!file_exists(BASEPATH.'Config/Config.php'))
-		{
-			show_error(500, 'Missing Configuration File', 'The configuration file does not exist.');
-		}
+		if (!file_exists(CFG_PATH.'Config.xml'))
+			exit('The configuration file does not exist.');
 
-		require_once(BASEPATH.'Config/Config.php');
+		$xml = new \DOMDocument;
+		$xml->load(CFG_PATH.'Config.xml');
 
-		// Does the $config array exist in the file?
-		if (!isset($config) || !is_array($config))
-		{
-			show_error(500, 'Configuration Error', 'Your config file does not appear to be formatted correctly.');
-		}
+		$configs = $xml->getElementsByTagName('config');
 		
-		foreach ($config as $key => $val)
-		{
-			if (isset($config[$key]))
-			{
-					$this->setItem(self::CFG_GENERAL, $key, $val);
-			}
-		}
+		foreach ($configs as $key => $val)
+			$this->setItem(self::CFG_GENERAL, $key, $val);
 
 		// Set the base_url automatically if none was provided
 		if (empty($this->_general_config['base_url']))
@@ -130,9 +113,7 @@ class Config
 				$base_url .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
 			}
 			else
-			{
 				$base_url = 'http://localhost';
-			}
 
 			$this->setItem(self::CFG_GENERAL, 'base_url', $base_url);
 		}
@@ -145,26 +126,20 @@ class Config
 	 * @param	Application
 	 * @return	void
 	 */
-	public function load_application_config(\System\Library\Application $app)
+	public function load_application_config(Application $app)
 	{
 		// Fetch the config file
 		if (!file_exists(BASEPATH.'Config/Applications.php'))
-		{
 			show_error(500, 'Missing Configuration File', 'The configuration file does not exist.');
-		}
 
 		require_once(BASEPATH.'Config/Applications.php');
 
 		// Does the $config array exist in the file?
 		if (!isset(${strtolower($app->name())}) || !is_array(${strtolower($app->name())}))
-		{
 			show_error(500, 'Configuration Error', 'Your config file does not appear to be formatted correctly.');
-		}
 		
 		foreach (${strtolower($app->name())} as $key => $val)
-		{
 			$this->setItem(self::CFG_APP, $key, $val);
-		}
 	}
 	
 	/**
@@ -174,28 +149,22 @@ class Config
 	 * @param	DataBase_Handler
 	 * @return	void
 	 */
-	public function load_database_config(\System\Library\DatabaseHandler $db_handler)
+	public function load_database_config(DatabaseHandler $db_handler)
 	{
 		// Fetch the config file
 		if (!file_exists(BASEPATH.'Config/Database.php'))
-		{
 			show_error(500, 'Missing Database File', 'The database file does not exist.');
-		}
 
 		require(BASEPATH.'Config/Database.php');
 
 		// Does the $config array exist in the file?
 		if (!isset($db) || !is_array($db))
-		{
 			show_error(500, 'Configuration Error', 'Your database file does not appear to be formatted correctly.');
-		}
 		
 		foreach ($db as $key => $val)
 		{
 			if (isset($db[$key]))
-			{
 					$this->setItem(self::CFG_DATABASE, $key, $val);
-			}
 		}
 	}
 }

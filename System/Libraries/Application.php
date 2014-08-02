@@ -4,7 +4,7 @@
 	CLASS: Application
 	PATH: System\Library
 	DESCRIPTION: Script allowing to control the applications.
-	LAST UPDATE: 03/11/2014
+	LAST UPDATE: 04/07/2014
 	AUTHORS: Soulalex
 */
 
@@ -14,8 +14,8 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 abstract class Application
 {
-	private $route;
-	private $page;
+	protected $route;
+	protected $page;
 
 	public function __construct(\System\Library\Models\Route\Route $route) 
 	{
@@ -31,7 +31,7 @@ abstract class Application
 	{
 		if ($this->route->uri() != $GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'error_uri'))
 		{
-			if ($GLOBALS['$_SESSION']->getAttribute('rank') < $GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'level_required_to_reach_site') && $this->route->uri() != $GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'authentification_URI'))
+			if ($GLOBALS['$_SESSION']->getAttribute('rank') < $GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'level_required_to_reach_site') && $this->route->uri() != $GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'auth_uri'))
 			{
 				show_error(ERROR_LEVEL_ERROR, 'Accès Refusé', 'Vous n\'avez pas le niveau requis pour naviguer sur ce site. Veuillez vous connecter pour obtenir un éventuel accès.');
 			}

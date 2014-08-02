@@ -3,12 +3,14 @@
 namespace System\Library;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
- 
+
+use \System\Library\DatabaseHandler;
+
 abstract class Manager
 {
 	protected $_DB_HANDLER;
 	   
-	public function __construct(\System\Library\DatabaseHandler $_DB_HANDLER)
+	public function __construct(DatabaseHandler $_DB_HANDLER)
 	{
 		$this->_DB_HANDLER = $_DB_HANDLER;
 	}

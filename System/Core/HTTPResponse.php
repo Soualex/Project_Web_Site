@@ -4,10 +4,11 @@ namespace System\Core;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
+use \System\Core\Config;
+use \System\Library\Page;
+
 class HTTPResponse
-{
-	private $page;
-	
+{	
 	public function addHeader($header) 
 	{
 		header($header);
@@ -15,20 +16,15 @@ class HTTPResponse
  
 	public function redirect($location) 
 	{
-		global $CFG;
-		
-		header('Location: '.$GLOBALS['$_CFG']->getItem(CFG_GENERAL, 'base_url').$location);
+		$config = new Config();
+
+		header('Location: '.$config->getItem(CFG_GENERAL, 'base_url').$location);
 		exit;
 	}
 	
-	public function send() 
+	public function sendGeneratedPage(Page $page) 
 	{
-		exit($this->page->getGeneratedPage());
-	}
-
-	public function setPage(\System\Library\Page $page) 
-	{
-		$this->page = $page;
+		exit($page->getGeneratedPage());
 	}
 
 	public function setCookie($name, $value = '', $expire = 0, $path = NULL, $domain = NULL, $secure = FALSE, $httpOnly = TRUE) 

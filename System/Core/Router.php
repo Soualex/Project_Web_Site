@@ -2,27 +2,37 @@
 
 namespace System\Core;
 
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+if (!defined('BASE_PATH')) exit('No direct script access allowed');
 
-/**
- * Router Class
- *
- * @subpackage	Core
- * @category	Router
- */
+use System\Library\Model;
+use System\Library\Models\Site\Route\Route;
+
 class Router
 {	
-	protected $_routes = array();
+	private static $routes = array();
 	
-	public function __construct()
-	{		
-		// Get the routes class from database
-		$routes = $GLOBALS['$_MODELS_HANDLER']->load_model_manager('Route')->getList();
-		
-		foreach ($routes as $route)
+	public function loadRoutes()
+	{
+		$xml = new \DOMDocument;
+		$xml->load(CFG_PATH.'Routes.xml');
+		    
+		$base_routes = $xml->getElementsByTagName('route');
+
+		foreach ($base_routes as $base_route)
 		{
-			// Add a new Route class to the Router class
-			$this->addRoute($route);
+		    $xml->load(APP_PATH.$base_route->getAttribute('app').'/Config/Routes.xml');
+		    
+		    $routes = $xml->getElementsByTagName('route');
+		    
+		    foreach ($routes as $route)
+		    {
+			    $vars = array();
+
+			    if ($route->hasAttribute('vars'))
+			    	$vars = explode(',', $route->getAttribute('vars'));
+			      
+			      $this->addRoute(new Route($route->getAttribute('url'), $route->getAttribute('module'), $route->getAttribute('action'), $vars));
+			}
 		}
 	}
 	
@@ -33,12 +43,10 @@ class Router
 	 * @access	public
 	 * @param	Route	the route to add
 	 */
-	public function addRoute(\System\Library\Models\Route\Route $route)
+	public function addRoute(Route $route)
 	{
-		if (!empty($route) && !in_array($route, $this->_routes))
-		{
-			$this->_routes[] = $route;
-		}
+		if (!empty($route) && !in_array($route, $this->routes))
+			$this->routes[] = $route;
 	}
 	
 	/**
@@ -49,11 +57,11 @@ class Router
 	 * @param	string	the route url
 	 * @return	Route
 	 */
-	public function getRoute($url)
+	public function getRouteByURL($url)
 	{
 		if (!empty($url))
 		{
-			foreach ($this->_routes as $route)
+			foreach ($this->routes as $route)
 			{
 				if (($varsValues = $route->match($url)) !== FALSE)
 				{
@@ -65,13 +73,29 @@ class Router
 						foreach ($varsValues as $key => $match)
 						{
 							if ($key !== 0)
-							{
 								$listVars[$varsNames[$key - 1]] = $match;
-							}
 						}
 			
 						$route->offsetSet('vars', $listVars);
 					}
+
+					return $route;
+				}
+			}
+		}
+		
+		show_error(ERROR_LEVEL_ERROR, 'Page Not Found', 'The page you try to reach does not exist. ');
+	}
+
+	public function getRouteByName($name, $vars = array())
+	{
+		if (!empty($name))
+		{
+			foreach ($this->routes as $route)
+			{
+				if ($route->offsetGet('name') == $name)
+				{
+					$route->offsetSet('vars', $vars);
 
 					return $route;
 				}

@@ -4,9 +4,8 @@ namespace System\Core;
 
 if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-// Start the session
 session_start();
- 
+
 class Session
 {	
 	public function __construct()
