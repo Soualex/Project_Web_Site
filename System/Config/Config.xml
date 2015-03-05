@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<configs>
+	<config attribute="site_name" value="Web Site" />
+	<config attribute="base_url" value="" />
+	<config attribute="charset" value="UTF-8" />
+
+	<config attribute="auth_uri" value="espace-personnel/connexion" />
+	<config attribute="admin_auth_uri" value="administration/connexion" />
+	<config attribute="access_min_level" value="0" />
+	<config attribute="accepted_registrations" value="true" />
+
+	<config attribute="sess_cookie_name" value="" />
+	<config attribute="sess_expiration" value="18000" />
+	<config attribute="sess_expire_on_close" value="true" />
+	<config attribute="sess_encrypt_cookie" value="true" />
+	<config attribute="sess_use_database" value="false" />
+	<config attribute="sess_table_name" value="sessions" />
+	<config attribute="sess_match_ip" value="true" />
+	<config attribute="sess_match_useragent" value="false" />
+	<config attribute="sess_time_to_update" value="18000" />
+
+	<config attribute="cookie_prefix" value="" />
+	<config attribute="cookie_domain" value="" />
+	<config attribute="cookie_path" value="/" />
+	<config attribute="cookie_secure" value="true" />
+</configs>
